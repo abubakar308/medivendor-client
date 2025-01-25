@@ -1,0 +1,44 @@
+[
+  {
+    "categoryId": "1",
+    "categoryName": "Tablet",
+    "image": "https://i.ibb.co.com/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+    "medicineCount": 120
+  },
+  {
+    "categoryId": "2",
+    "categoryName": "Syrup",
+    "image": "https://i.ibb.co.com/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+    "medicineCount": 80
+  },
+  {
+    "categoryId": "3",
+    "categoryName": "Capsule",
+    "image": "https://i.ibb.co.com/BnDgQRj/images-q-tbn-ANd9-Gc-RSp-SQvt-ROEmk6-DKi01z-It8-Zlwvrk5pl-Dmu-UQ-s.jpg",
+    "medicineCount": 90
+  },
+  {
+    "categoryId": "4",
+    "categoryName": "Injection",
+    "image": "https://i.ibb.co.com/yqkhPSW/images-q-tbn-ANd9-Gc-SHSVc-H7jm-Irtl-UDDwld-I-SQ6z-E9-Obd-OE6hg-s.jpg",
+    "medicineCount": 60
+  },
+  {
+    "categoryId": "5",
+    "categoryName": "Implants or Patches",
+    "image": "https://i.ibb.co.com/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+    "medicineCount": 40
+  },
+  {
+    "categoryId": "6",
+    "categoryName": "Buccal or Sublingual Tablets",
+    "image": "https://i.ibb.co.com/mbbPqWh/images-q-tbn-ANd9-Gc-SMmh8-J3l-Ro-AQb-Anm6b-VBrw-Mwid-KVOOQtorzg-s.jpg",
+    "medicineCount": 30
+  },
+  {
+    "categoryId": "7",
+    "categoryName": "Drop",
+    "image": "https://i.ibb.co.com/R4f8rBp/images-q-tbn-ANd9-Gc-QPIsne-Ba-Ytd-Lzco-O8-Pm0-Ez-Obt9l-UW-h7-Kg-s.jpg",
+    "medicineCount": 50
+  }
+]

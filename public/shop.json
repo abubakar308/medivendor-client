@@ -1,0 +1,167 @@
+[
+    {
+      "itemName": "Paracetamol",
+      "itemGenericName": "Acetaminophen",
+      "shortDescription": "Pain reliever and fever reducer.",
+      "image": "https://i.ibb.co/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+      "categoryName": "Tablet",
+      "companyName": "ABC Pharmaceuticals",
+      "itemMassUnit": "500mg",
+      "perUnitPrice": 2.5,
+      "discountPercent": 10
+    },
+    {
+      "itemName": "Amoxicillin",
+      "itemGenericName": "Amoxicillin Trihydrate",
+      "shortDescription": "Broad-spectrum antibiotic for infections.",
+      "image": "https://i.ibb.co/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+      "categoryName": "Capsule",
+      "companyName": "XYZ Pharma",
+      "itemMassUnit": "250mg",
+      "perUnitPrice": 5.0,
+      "discountPercent": 15
+    },
+    {
+      "itemName": "Cough Syrup",
+      "itemGenericName": "Dextromethorphan",
+      "shortDescription": "Relieves cough and throat irritation.",
+      "image": "https://i.ibb.co/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+      "categoryName": "Syrup",
+      "companyName": "HealthCare Ltd.",
+      "itemMassUnit": "100ml",
+      "perUnitPrice": 3.5,
+      "discountPercent": 5
+    },
+    {
+      "itemName": "Insulin Injection",
+      "itemGenericName": "Human Insulin",
+      "shortDescription": "Controls blood sugar levels in diabetes.",
+      "image": "https://i.ibb.co/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+      "categoryName": "Injection",
+      "companyName": "BioCare Pharma",
+      "itemMassUnit": "10ml",
+      "perUnitPrice": 20.0,
+      "discountPercent": 20
+    },
+    {
+      "itemName": "Eye Drops",
+      "itemGenericName": "Tetrahydrozoline",
+      "shortDescription": "Relieves redness and dryness in eyes.",
+      "image": "https://i.ibb.co/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+      "categoryName": "Drops",
+      "companyName": "Vision Pharma",
+      "itemMassUnit": "15ml",
+      "perUnitPrice": 2.0,
+      "discountPercent": 5
+    },
+    {
+      "itemName": "Pain Relief Gel",
+      "itemGenericName": "Diclofenac Sodium",
+      "shortDescription": "Topical relief for muscle pain.",
+      "image": "https://i.ibb.co/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+      "categoryName": "Others",
+      "companyName": "FlexiPharm",
+      "itemMassUnit": "50g",
+      "perUnitPrice": 6.0,
+      "discountPercent": 12
+    },
+    {
+      "itemName": "Vitamin C Tablets",
+      "itemGenericName": "Ascorbic Acid",
+      "shortDescription": "Boosts immunity and skin health.",
+      "image": "https://i.ibb.co/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+      "categoryName": "Tablet",
+      "companyName": "Natural Remedies",
+      "itemMassUnit": "1000mg",
+      "perUnitPrice": 4.0,
+      "discountPercent": 10
+    },
+    {
+      "itemName": "Antihistamine Syrup",
+      "itemGenericName": "Chlorpheniramine",
+      "shortDescription": "Treats allergy symptoms.",
+      "image": "https://i.ibb.co/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+      "categoryName": "Syrup",
+      "companyName": "AllergyCare Inc.",
+      "itemMassUnit": "100ml",
+      "perUnitPrice": 3.0,
+      "discountPercent": 8
+    },
+    {
+      "itemName": "Blood Pressure Tablets",
+      "itemGenericName": "Amlodipine",
+      "shortDescription": "Helps manage high blood pressure.",
+      "image": "https://i.ibb.co/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+      "categoryName": "Tablet",
+      "companyName": "CardioCare Pharma",
+      "itemMassUnit": "10mg",
+      "perUnitPrice": 1.5,
+      "discountPercent": 5
+    },
+    {
+      "itemName": "Antacid Suspension",
+      "itemGenericName": "Magnesium Hydroxide",
+      "shortDescription": "Relieves heartburn and indigestion.",
+      "image": "https://i.ibb.co/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+      "categoryName": "Syrup",
+      "companyName": "DigestCare Ltd.",
+      "itemMassUnit": "200ml",
+      "perUnitPrice": 4.0,
+      "discountPercent": 7
+    },
+    {
+      "itemName": "Antifungal Cream",
+      "itemGenericName": "Clotrimazole",
+      "shortDescription": "Treats fungal infections.",
+      "image": "https://i.ibb.co/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+      "categoryName": "Others",
+      "companyName": "SkinSafe Pharma",
+      "itemMassUnit": "30g",
+      "perUnitPrice": 3.0,
+      "discountPercent": 15
+    },
+    {
+      "itemName": "Antibiotic Drops",
+      "itemGenericName": "Ciprofloxacin",
+      "shortDescription": "Treats bacterial eye infections.",
+      "image": "https://i.ibb.co/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+      "categoryName": "Drops",
+      "companyName": "EyeCare Pharma",
+      "itemMassUnit": "10ml",
+      "perUnitPrice": 2.5,
+      "discountPercent": 10
+    },
+    {
+      "itemName": "Multivitamin Syrup",
+      "itemGenericName": "Vitamins A, B, C, D",
+      "shortDescription": "Supplement for overall health.",
+      "image": "https://i.ibb.co/LR9K1cb/images-q-tbn-ANd9-Gc-Qb-Fhkv-Mj00yf-Ypa-Bv-Cxeo9-xe-Mgfe9f4bz-Q-s.jpg",
+      "categoryName": "Syrup",
+      "companyName": "NutriCare Inc.",
+      "itemMassUnit": "150ml",
+      "perUnitPrice": 5.0,
+      "discountPercent": 12
+    },
+    {
+      "itemName": "Steroid Injection",
+      "itemGenericName": "Hydrocortisone",
+      "shortDescription": "Reduces inflammation.",
+      "image": "https://i.ibb.co/YBmyRpW/images-q-tbn-ANd9-Gc-SMruj-Ws0-K1m-7l-Ch5l-Sj-DS0jd39w4y-5mm-Eg-s.jpg",
+      "categoryName": "Injection",
+      "companyName": "InjCare Ltd.",
+      "itemMassUnit": "5ml",
+      "perUnitPrice": 10.0,
+      "discountPercent": 8
+    },
+    {
+      "itemName": "Energy Booster Drink",
+      "itemGenericName": "Glucose-D",
+      "shortDescription": "Instant energy drink.",
+      "image": "https://i.ibb.co/g6YPXKK/images-q-tbn-ANd9-Gc-Sul-Yn-Fk-I0u-VTl-Z4-XIZwo-Ud-DUkr2seyx-Nx-VA-s.jpg",
+      "categoryName": "Others",
+      "companyName": "EnergyCare Ltd.",
+      "itemMassUnit": "1L",
+      "perUnitPrice": 2.5,
+      "discountPercent": 10
+    }
+  ]
