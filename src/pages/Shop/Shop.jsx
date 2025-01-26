@@ -11,11 +11,11 @@ const Shop = () => {
         },
       })
     return (
-            <div className='container mx-auto px-4 sm:px-8'>
+            <div className='container w-full mx-auto px-3 sm:px-5'>
         <div className='py-8'>
-          <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
-            <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
-              <table className='min-w-full leading-normal'>
+          <div className='-mx-4 sm:-mx-5 px-3 sm:px-5 py-3 overflow-x-auto'>
+            <div className=' min-w-full shadow rounded-lg overflow-hidden'>
+              <table className='w-full leading-normal'>
                 <thead>
                   <tr>
                     <th
