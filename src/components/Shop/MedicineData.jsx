@@ -1,22 +1,49 @@
 /* eslint-disable react/prop-types */
 import { Description, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
+import useAuth from "../../hooks/useAuth";
 
 const MedicineData = ({medicine}) => {
     const {_id, image, itemName, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
 const [isOpen, setIsOpen] = useState(false);
-const [medicineData, setMedicinedata] = useState("");
-console.log(medicineData)
+const {user} = useAuth();
+
+// const [medicineData, setMedicinedata] = useState("");
+// console.log(medicineData)
+
+const item= {
+  medicineId: _id,
+  image: image,
+  itemName: itemName,
+  perUnitPrice: perUnitPrice,
+  companyName: companyName,
+  discountPercent: discountPercent,
+  itemMassUnit: itemMassUnit,
+  coustomerEmail: user?.email || "",
+}
+
+
   const handleClick = id =>{
     fetch(`${import.meta.env.VITE_API_URL}/medicine/${id}`)
     .then(res=>res.json())
     .then(data=>{
+      console.log(data)
       setIsOpen(true)
-      setMedicinedata(data);
+      // setMedicinedata(data);
     })
-    
   }
+
+  const handleSelect = async () => {
+   
+     axios.post(`${import.meta.env.VITE_API_URL}/carts`, item); // Make sure VITE_API_URL is the correct environment variable
+      
+  
+      // navigate('/my-bids');
+  };
+  
 
     return (
         
@@ -51,7 +78,7 @@ console.log(medicineData)
         <p className='text-gray-900 whitespace-no-wrap'>5</p>
       </td>
       <td className='p-3 border-b border-gray-200 bg-white text-sm'>
-        <button className='text-gray-900 whitespace-no-wrap'>select</button>
+        <button onClick={handleSelect} className='text-gray-900 whitespace-no-wrap'>select</button>
       </td>
 
       <td className='p-3 border-b border-gray-200 bg-white text-sm'>

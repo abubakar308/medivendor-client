@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
@@ -45,27 +47,28 @@ const AuthProvider = ({children}) => {
       if (currentUser?.email) {
         setUser(currentUser)
         // save user info in db
-        // await axios.post(
-        //   `${import.meta.env.VITE_API_URL}/users/${currentUser?.email}`,
-        //   {
-        //     name: currentUser?.displayName,
-        //     image: currentUser?.photoURL,
-        //     email: currentUser?.email,
-        //   }
-        // )
-        // // Get JWT token
-        // await axios.post(
-        //   `${import.meta.env.VITE_API_URL}/jwt`,
-        //   {
-        //     email: currentUser?.email,
-        //   },
-        //   { withCredentials: true }
-        // )
-      } else {
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/users/${currentUser?.email}`,
+          {
+            name: currentUser?.displayName,
+            image: currentUser?.photoURL,
+            email: currentUser?.email,
+          }
+        )
+        // Get JWT token
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/jwt`,
+          {
+            email: currentUser?.email,
+          },
+          { withCredentials: true }
+        )
+       }
+       else {
         setUser(currentUser)
-        // await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-        //   withCredentials: true,
-        // })
+        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+          withCredentials: true,
+        })
       }
       setLoading(false)
     })
