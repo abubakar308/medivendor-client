@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { Description, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -10,9 +9,6 @@ const MedicineData = ({medicine}) => {
     const {_id, image, itemName, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
 const [isOpen, setIsOpen] = useState(false);
 const {user} = useAuth();
-
-// const [medicineData, setMedicinedata] = useState("");
-// console.log(medicineData)
 
 const item= {
   medicineId: _id,
@@ -32,7 +28,6 @@ const item= {
     .then(data=>{
       console.log(data)
       setIsOpen(true)
-      // setMedicinedata(data);
     })
   }
 
