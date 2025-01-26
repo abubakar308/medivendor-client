@@ -18,7 +18,7 @@ const item= {
   companyName: companyName,
   discountPercent: discountPercent,
   itemMassUnit: itemMassUnit,
-  coustomerEmail: user?.email || "",
+  customerEmail: user?.email || "",
 }
 
 

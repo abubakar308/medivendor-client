@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import Loading from "../../Shared/Loading/Loading";
 
 
 const CartPage = () => {
@@ -12,7 +13,9 @@ const CartPage = () => {
           const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
           return data
         },
+        enabled: !!user?.email,
       })
+      if(isLoading) return <Loading />;
       
       const removeItem = id =>{
         console.log(`Removing item with ID: ${id}`);
@@ -27,6 +30,17 @@ const CartPage = () => {
           });
       }
 
+      const clearAllCart = ()=>{
+        axios
+          .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user.email}`)
+          .then((data) => {
+            console.log(data)
+            refetch(); // Refetch only after successful deletion
+          })
+          .catch((error) => {
+            console.error("Failed to delete the item:", error);
+          });
+      }
     
     return (
         <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-md">
@@ -82,7 +96,7 @@ const CartPage = () => {
             </table>
             <div className="mt-6 flex justify-between items-center">
               <button
-                // onClick={clearCart}
+                onClick={clearAllCart}
                 className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
               >
                 Clear Cart
