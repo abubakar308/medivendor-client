@@ -13,8 +13,20 @@ const CartPage = () => {
           return data
         },
       })
-      refetch
-      console.log(cartdata)
+      
+      const removeItem = id =>{
+        console.log(`Removing item with ID: ${id}`);
+        axios
+          .delete(`${import.meta.env.VITE_API_URL}/cart/${id}`)
+          .then((data) => {
+            console.log(data)
+            refetch(); // Refetch only after successful deletion
+          })
+          .catch((error) => {
+            console.error("Failed to delete the item:", error);
+          });
+      }
+
     
     return (
         <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-md">
@@ -40,52 +52,52 @@ const CartPage = () => {
                     <td className="p-3 border-b border-gray-300">{item.companyName}</td>
                     <td className="p-3 border-b border-gray-300">${item.perUnitPrice}</td>
                     <td className="p-3 border-b border-gray-300 text-center">
-                      {/* <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center justify-center space-x-2">
                         <button
-                          onClick={() => decreaseQuantity(item.id)}
+                        //   onClick={() => decreaseQuantity(item.id)}
                           className="px-2 py-1 bg-gray-300 rounded text-gray-800 hover:bg-gray-400"
                         >
                           -
                         </button>
                         <span>{item.quantity}</span>
                         <button
-                          onClick={() => increaseQuantity(item.id)}
+                        //   onClick={() => increaseQuantity(item.id)}
                           className="px-2 py-1 bg-gray-300 rounded text-gray-800 hover:bg-gray-400"
                         >
                           +
                         </button>
-                      </div> */}
+                      </div>
                     </td>
                     <td className="p-3 border-b border-gray-300">
-                      {/* <button
-                        onClick={() => removeItem(item.id)}
+                      <button
+                        onClick={() => removeItem(item._id)}
                         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                       >
                         Remove
-                      </button> */}
+                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            {/* <div className="mt-6 flex justify-between items-center">
+            <div className="mt-6 flex justify-between items-center">
               <button
-                onClick={clearCart}
+                // onClick={clearCart}
                 className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
               >
                 Clear Cart
               </button>
               <div className="text-lg font-semibold">
-                Total: <span className="text-green-500">${calculateTotal()}</span>
+                {/* Total: <span className="text-green-500">${calculateTotal()}</span> */}
               </div>
-            </div> */}
+            </div>
             <div className="mt-6 text-right">
-              {/* <button
-                onClick={handleCheckout}
+              <button
+                // onClick={handleCheckout}
                 className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               >
                 Checkout
-              </button> */}
+              </button>
             </div>
           </div>
         )}
