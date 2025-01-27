@@ -2,7 +2,7 @@
 const ManageBanner = () => {
     return (
         <div>
-            manage banner
+           <p>manage banner</p>
         </div>
     );
 };

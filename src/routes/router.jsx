@@ -12,6 +12,9 @@ import Manageuser from "../pages/Dashboard/Admin/Manageuser";
 import ManageBanner from "../pages/Dashboard/Admin/ManageBanner";
 import Managepayment from "../pages/Dashboard/Admin/Managepayment";
 import ManageMedicine from "../pages/Dashboard/Seller/ManageMedicine";
+import PaymentHistory from "../pages/Dashboard/User/PaymentHistory";
+import PaymentHistorySeller from "../pages/Dashboard/Seller/PaymentHistorySeller";
+import Salesreport from "../pages/Dashboard/Admin/Salesreport";
 
 export const router = createBrowserRouter([
     {
@@ -41,29 +44,37 @@ export const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
           {
-            path: '/',
+            path: 'manage-category',
             element: <Managecategory />
           },
           {
-            path: '/manage-users',
+            path: 'manage-users',
             element: <Manageuser />
           },
           {
-            path: '/manage-banner',
+            path: 'manage-banner',
             element: <ManageBanner />
           },
           {
-            path: '/payment-management',
+            path: 'payment-management',
             element: <Managepayment />
           },
           {
-            path: '/manage-medicine',
+            path: 'manage-medicine',
             element: <ManageMedicine />
           },
-          // {
-          //   path: '/payment-management',
-          //   element: <Managepayment />
-          // }
+          {
+            path: 'payment-history-user',
+            element: <PaymentHistory />
+          },
+          {
+            path: 'payment-history-seller',
+            element: <PaymentHistorySeller />
+          },
+          {
+            path: 'sales-report',
+            element: <Salesreport />
+          },
         ]
       },
       {

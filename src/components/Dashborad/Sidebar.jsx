@@ -14,7 +14,7 @@ const Sidebar = () => {
         <nav className="flex-1 p-4 space-y-2">
           {/* Manage Users */}
           <Link
-            to="/manage-users"
+            to="manage-users"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
            
@@ -23,7 +23,7 @@ const Sidebar = () => {
   
           {/* Manage Category */}
           <Link
-            to="/manage-category"
+            to="manage-category"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
            
@@ -32,7 +32,7 @@ const Sidebar = () => {
   
           {/* Payment Management */}
           <Link
-            to="/payment-management"
+            to="payment-management"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <BiCreditCard size={20} />
@@ -41,7 +41,7 @@ const Sidebar = () => {
   
           {/* Sales Report */}
           <Link
-            to="/sales-report"
+            to="sales-report"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <BiBarChart size={20} />
@@ -50,7 +50,7 @@ const Sidebar = () => {
   
           {/* Manage Banner Advertise */}
           <Link
-            to="/manage-banner"
+            to="manage-banner"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
            
@@ -59,7 +59,7 @@ const Sidebar = () => {
   
           {/* Manage Medicines */}
           <Link
-            to="/manage-medicines"
+            to="manage-medicine"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <BiPackage size={20} />
@@ -68,7 +68,7 @@ const Sidebar = () => {
   
           {/* Payment History */}
           <Link
-            to="/payment-history"
+            to="payment-history-user"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <FiFileText size={20} />
@@ -77,7 +77,7 @@ const Sidebar = () => {
   
           {/* Ask for Advertisement */}
           <Link
-            to="/ask-for-advertisement"
+            to="ask-for-advertisement"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <BiHelpCircle size={20} />

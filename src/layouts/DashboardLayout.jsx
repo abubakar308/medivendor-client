@@ -9,12 +9,12 @@ const DashboardLayout = () => {
             <Navbar />
             <div className="flex gap-3">
     {/* Sidebar */}
-    <div className="hidden md:block md:w-64">
+    <div className="hidden  md:block md:w-64">
       <Sidebar />
     </div>
 
     {/* Main Content */}
-    <div className="flex-1">
+    <div className="flex-1 md:mt-20 mt-24">
       <Outlet />
     </div>
   </div>
