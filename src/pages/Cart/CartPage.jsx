@@ -15,7 +15,7 @@ const CartPage = () => {
         },
         enabled: !!user?.email,
       })
-      console.log(cartdata)
+      
       if(isLoading) return <Loading />;
       
       const removeItem = id =>{

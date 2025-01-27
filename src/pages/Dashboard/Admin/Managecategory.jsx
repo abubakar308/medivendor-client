@@ -4,37 +4,63 @@ import axios from "axios";
 import { useState } from "react";
 import Loading from "../../../Shared/Loading/Loading";
 import Categorytable from "../../../components/Dashborad/Categorytable";
+import { imageUpload } from "../../../api/utils";
 
 
 const Managecategory = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+
     
-    const {data: categories, isLoading } = useQuery({
-      queryKey: ['category'],
+  // Use `useQuery` to fetch categories
+    const {data: categories = [], isLoading, refetch } = useQuery({
+      queryKey: ['cartdata'],
       queryFn: async () => {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/categories`)
-        return data
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/categories`);
+      return data;
       },
+      // enabled: !!user?.email,
     })
-    
+
     if(isLoading) return <Loading />
 
+    const handleAdd = () =>{
+      setIsOpen(true)
+  }
 
-  const handleAddCategory = (e) => {
+  const handleAddCategory = async (e) => {
     e.preventDefault()
-    const formData = {
-        categoryName: e.target.categoryName.value,
-        image: e.target.imageUrl.value || e.target.imageFile.files[0]
-    }
-    console.log("New Category Data:", formData);
-    
-    // Add your API call or logic here
+ const form = e.target
+      const name =form.categoryName.value;
+      const photoFile = form.imageFile?.files[0];
+      console.log(photoFile)
+ 
+      let imageUrl = '';
+      if (photoFile) {
+        // Upload the image file and get the URL
+        imageUrl = await imageUpload(photoFile);
+      } else {
+        imageUrl = form.imageUrl.value; // Use the provided URL if no file is uploaded
+      }
+      const category ={
+        categoryName: name,
+        image:  imageUrl,
+        medicineCount: 0
+      }
+   
+    axios.post(`${import.meta.env.VITE_API_URL}/category`, category)
+    .then((data) => {
+      console.log(data)
+      refetch(); // Refetch only after successful deletion
+    })
+    .catch((error) => {
+      console.error("Failed to delete the item:", error);
+    });
+    setIsOpen(false);
+     if(isLoading) return <Loading />
   };
-  const handleAdd = () =>{
-    setIsOpen(true)
-}
+
     return (
         <div>
           <div className="flex justify-around py-3 text-2xl font-bold">
@@ -42,7 +68,7 @@ const Managecategory = () => {
       <button className="btn" onClick={handleAdd}>Add a new category</button>
           </div>
           {/* category data table */}
-          <Categorytable categories={categories} ></Categorytable>
+          <Categorytable categories={categories} refetch={refetch}></Categorytable>
     
            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
       <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-black bg-opacity-30">

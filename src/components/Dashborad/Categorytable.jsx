@@ -1,14 +1,30 @@
+import axios from "axios";
 
 // eslint-disable-next-line react/prop-types
-const Categorytable = ({categories}) => {
+const Categorytable = ({categories, refetch}) => {
     console.log(categories)
 
     const handleUpdate = id =>{
-console.log(id)
+        axios.patch(`${import.meta.env.VITE_API_URL}/category/${id}`,)
+        .then((data) => {
+            console.log(data)
+            refetch(); // Refetch only after successful deletion
+          })
+          .catch((error) => {
+            console.error("Failed to delete the item:", error);
+          });
     }
 
     const handleDelete = id =>{
         console.log(id)
+        axios.delete(`${import.meta.env.VITE_API_URL}/category/${id}`,)
+        .then((data) => {
+            console.log(data)
+            refetch(); // Refetch only after successful deletion
+          })
+          .catch((error) => {
+            console.error("Failed to delete the item:", error);
+          });
     }
     return (
         <div className="overflow-x-auto">
