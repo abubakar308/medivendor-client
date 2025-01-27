@@ -4,11 +4,11 @@ const Categorytable = ({categories}) => {
     console.log(categories)
 
     const handleUpdate = id =>{
-
+console.log(id)
     }
 
     const handleDelete = id =>{
-        
+        console.log(id)
     }
     return (
         <div className="overflow-x-auto">

@@ -8,6 +8,10 @@ import CategoryDetails from "../pages/CategoryDetails/CategoryDetails";
 import CartPage from "../pages/Cart/CartPage";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Managecategory from "../pages/Dashboard/Admin/Managecategory";
+import Manageuser from "../pages/Dashboard/Admin/Manageuser";
+import ManageBanner from "../pages/Dashboard/Admin/ManageBanner";
+import Managepayment from "../pages/Dashboard/Admin/Managepayment";
+import ManageMedicine from "../pages/Dashboard/Seller/ManageMedicine";
 
 export const router = createBrowserRouter([
     {
@@ -37,9 +41,29 @@ export const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
           {
-            path: '/dashboard',
+            path: '/',
             element: <Managecategory />
-          }
+          },
+          {
+            path: '/manage-users',
+            element: <Manageuser />
+          },
+          {
+            path: '/manage-banner',
+            element: <ManageBanner />
+          },
+          {
+            path: '/payment-management',
+            element: <Managepayment />
+          },
+          {
+            path: '/manage-medicine',
+            element: <ManageMedicine />
+          },
+          // {
+          //   path: '/payment-management',
+          //   element: <Managepayment />
+          // }
         ]
       },
       {
