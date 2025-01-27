@@ -32,7 +32,6 @@ const item= {
   }
 
   const handleSelect = async () => {
-   
      axios.post(`${import.meta.env.VITE_API_URL}/carts`, item); // Make sure VITE_API_URL is the correct environment variable
       
       // navigate('/my-bids');

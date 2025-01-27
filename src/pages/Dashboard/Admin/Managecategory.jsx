@@ -25,10 +25,6 @@ const Managecategory = () => {
 
     if(isLoading) return <Loading />
 
-    const handleAdd = () =>{
-      setIsOpen(true)
-  }
-
   const handleAddCategory = async (e) => {
     e.preventDefault()
  const form = e.target
@@ -65,10 +61,10 @@ const Managecategory = () => {
         <div>
           <div className="flex justify-around py-3 text-2xl font-bold">
       <h2>All category: {categories.length}</h2>
-      <button className="btn" onClick={handleAdd}>Add a new category</button>
+      <button className="btn" onClick={()=> setIsOpen(true)}>Add a new category</button>
           </div>
           {/* category data table */}
-          <Categorytable categories={categories} refetch={refetch}></Categorytable>
+          <Categorytable categories={categories} refetch={refetch} isLoading={isLoading}></Categorytable>
     
            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
       <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-black bg-opacity-30">
