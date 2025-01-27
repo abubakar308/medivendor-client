@@ -16,7 +16,6 @@ const SignUp = () => {
       const email = form.email.value
       const password = form.password.value
       const image = form.image.files[0]
-  console.log(name)
       //send image data to imgbb
       const photoURL = await imageUpload(image)
       try {

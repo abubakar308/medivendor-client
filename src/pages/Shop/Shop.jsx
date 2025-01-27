@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import MedicineData from "../../components/Shop/MedicineData";
+import Loading from "../../Shared/Loading/Loading";
 
 const Shop = () => {
     const {data: medicines, isLoading } = useQuery({
@@ -10,6 +11,7 @@ const Shop = () => {
           return data
         },
       })
+      if(isLoading) return <Loading />;
     return (
             <div className='container w-full mx-auto px-3 sm:px-5'>
         <div className='py-8'>

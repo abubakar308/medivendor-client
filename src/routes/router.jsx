@@ -6,6 +6,8 @@ import Login from "../pages/Login/Login";
 import Shop from "../pages/Shop/Shop";
 import CategoryDetails from "../pages/CategoryDetails/CategoryDetails";
 import CartPage from "../pages/Cart/CartPage";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Managecategory from "../pages/Dashboard/Admin/Managecategory";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +30,16 @@ export const router = createBrowserRouter([
               path: '/cart',
               element: <CartPage></CartPage>
             }
+        ]
+      },
+      {
+        path: '/dashboard',
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/dashboard',
+            element: <Managecategory />
+          }
         ]
       },
       {

@@ -7,14 +7,15 @@ import Loading from "../../Shared/Loading/Loading";
 const CartPage = () => {
     const {user} = useAuth();
 
-    const {data: cartdata, isLoading, refetch } = useQuery({
-        queryKey: ['cartdata'],
+    const {data: cartdata = [], isLoading, refetch } = useQuery({
+        queryKey: ['cartdata', user?.email],
         queryFn: async () => {
           const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
           return data
         },
         enabled: !!user?.email,
       })
+      console.log(cartdata)
       if(isLoading) return <Loading />;
       
       const removeItem = id =>{
