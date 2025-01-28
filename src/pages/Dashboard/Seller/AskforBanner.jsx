@@ -10,6 +10,7 @@ const AskforBanner = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 const [error, setError] = useState("");
+
 const {user} = useAuth()
 
     const handleBnnerAdd = async (e) => {
@@ -20,10 +21,11 @@ const {user} = useAuth()
         const imageFile = form.imageFile?.files[0];
         const itemName = form.medicine.value
         const Selleremail = user?.email
+        const Status = 'pending'
 
         const image = await imageUpload(imageFile)
         const bannerData= {
-            description, image, Selleremail, itemName
+            description, image, Selleremail, itemName, Status
         }
     
          axios.post(`${import.meta.env.VITE_API_URL}/banners`, bannerData);
@@ -37,6 +39,16 @@ const {user} = useAuth()
         queryFn: async () => {
           if (!user?.email) return []; // Handle case where email is not available
           const { data } = await axios(`${import.meta.env.VITE_API_URL}/added-medicines?email=${user?.email}`);
+          return data;
+        },
+        enabled: !!user?.email,
+      });
+
+      const { data: banners } = useQuery({
+        queryKey: ['banners', user?.email],
+        queryFn: async () => {
+          if (!user?.email) return []; // Handle case where email is not available
+          const { data } = await axios(`${import.meta.env.VITE_API_URL}/banners?email=${user?.email}`);
           return data;
         },
         enabled: !!user?.email,
@@ -62,21 +74,21 @@ const {user} = useAuth()
             <th className="border border-gray-300 px-4 py-2">Status</th>
           </tr>
         </thead>
-        {/* <tbody>
-          {medicines?.map((medicine, index) => (
+        <tbody>
+          {banners?.map((medicine, index) => (
             <tr key={medicine._id} className="hover:bg-gray-50">
               <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
               <td className="border border-gray-300 px-4 py-2">{medicine.itemName}</td>
               <td className="border border-gray-300 px-4 py-2">
-                {medicine.isInSlider ? (
-                  <span className="text-green-500">Used in Slider</span>
+                {medicine.Status === 'approved' ? (
+                  <span className="text-green-500">{medicine?.Status}</span>
                 ) : (
-                  <span className="text-red-500">Not in Slider</span>
+                  <span className="text-red-500">{medicine?.Status}</span>
                 )}
               </td>
             </tr>
           ))}
-        </tbody> */}
+        </tbody>
       </table>
 
       {/* Modal for Adding Advertisement */}

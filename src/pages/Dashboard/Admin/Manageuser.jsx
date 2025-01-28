@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Loading from "../../../Shared/Loading/Loading";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Manageuser = () => {
-
+// const {user} = useAuth()
     const {data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['cartdata'],
+        queryKey: ['users'],
         queryFn: async () => {
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/users`)
+          const { data } = await axios(`${import.meta.env.VITE_API_URL}/all-users`)
           return data
         },
       })

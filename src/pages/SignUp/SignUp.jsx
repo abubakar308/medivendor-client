@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth, { saveUser } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
@@ -16,6 +16,7 @@ const SignUp = () => {
       const email = form.email.value
       const password = form.password.value
       const image = form.image.files[0]
+
       //send image data to imgbb
       const photoURL = await imageUpload(image)
       try {
@@ -25,6 +26,7 @@ const SignUp = () => {
         // Save username & profile photo
         await updateUserProfile(name, photoURL)
         console.log(result)
+        await saveUser({ ...result?.user, displayName: name, photoURL })
   
         navigate('/')
         Swal.fire({
@@ -43,8 +45,8 @@ const SignUp = () => {
     const handleGoogleSignIn = async () => {
       try {
         //User Registration using google
-        await signInWithGoogle()
-  
+        const data = signInWithGoogle()
+        await saveUser(data?.user)
         navigate('/')
         Swal.fire({
             position: "center",

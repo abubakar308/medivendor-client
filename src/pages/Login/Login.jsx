@@ -1,5 +1,5 @@
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth, { saveUser } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { FcGoogle } from "react-icons/fc";
@@ -39,7 +39,9 @@ const Login = () => {
     const handleGoogleSignIn = async () => {
       try {
         //User Registration using google
-        await signInWithGoogle()
+        const data = await signInWithGoogle()
+        // save user info in db if the user is new
+        await saveUser(data?.user)
         navigate(from, { replace: true })
         Swal.fire({
             position: "top-end",
