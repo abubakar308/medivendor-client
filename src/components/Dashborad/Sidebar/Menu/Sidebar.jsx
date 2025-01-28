@@ -8,10 +8,8 @@ const Sidebar = () => {
   console.log(role)
     return (
         <div className="h-screen fixed top-10 left-0 w-64 bg-green-500 text-white flex flex-col">
+          
         {/* Sidebar Header */}
-        <div className="p-4 text-center font-bold text-lg border-b border-gray-700">
-          Admin Dashboard
-        </div>
   
         {/* Navigation Links */}
         <nav className="flex-1 p-4 space-y-2">

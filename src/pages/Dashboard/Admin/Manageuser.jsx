@@ -1,18 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Loading from "../../../Shared/Loading/Loading";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const Manageuser = () => {
-// const {user} = useAuth()
+const {user} = useAuth()
+const axiosSecure = useAxiosSecure()
     const {data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', user?.email],
         queryFn: async () => {
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/all-users`)
+          const { data } = await axiosSecure(`/all-users/${user?.email}`)
           return data
         },
-      })
+      });
+
+      const handleRoleChange = async (userId, newRole) => {
+        try {
+          // Send API request to update the user's role
+          const response = await axiosSecure.patch(`/update-role/${userId}`, { role: newRole });
+          console.log(response.data.message);
+          refetch(); // Refetch the users after updating the role
+        } catch (error) {
+          console.error("Error updating role:", error);
+        }
+      };
       if(isLoading) return <Loading />;
 
     return (
@@ -45,21 +57,32 @@ const Manageuser = () => {
                 <td className="p-4 text-sm">{user?.email}</td>
                 <td className="p-4 text-sm font-semibold">{user.role}</td>
                 <td className="p-4 flex justify-center items-center gap-2">
-                  {/* Promote to Seller */}
+                  {/* Make Seller */}
                   {user.role !== 'seller' && (
-                    <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    <button
+                      className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                      onClick={() => handleRoleChange(user._id, 'seller')}
+                    >
                       Make Seller
                     </button>
                   )}
-                  {/* Promote to Admin */}
+
+                  {/* Make Admin */}
                   {user.role !== 'admin' && (
-                    <button className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600">
+                    <button
+                      className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                      onClick={() => handleRoleChange(user._id, 'admin')}
+                    >
                       Make Admin
                     </button>
                   )}
-                  {/* Downgrade to User */}
+
+                  {/* Downgrade */}
                   {user.role !== 'user' && (
-                    <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600">
+                    <button
+                      className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                      onClick={() => handleRoleChange(user._id, 'user')}
+                    >
                       Downgrade
                     </button>
                   )}

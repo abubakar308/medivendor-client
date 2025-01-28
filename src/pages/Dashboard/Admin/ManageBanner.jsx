@@ -1,8 +1,9 @@
 import { Switch } from "@headlessui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageBanner = () => {
+    const axiosSecure =useAxiosSecure()
 
     const [banners, setbanners] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,7 @@ const ManageBanner = () => {
   useEffect(() => {
     const fetchbanners = async () => {
       try {
-        const response = await axios(`${import.meta.env.VITE_API_URL}/banners`);
+        const response = await axiosSecure(`/banners`);
         setbanners(response.data);
         setLoading(false);
       } catch (error) {
@@ -21,7 +22,7 @@ const ManageBanner = () => {
     };
 
     fetchbanners();
-  }, []);
+  }, [axiosSecure]);
 
   // Toggle banner status (Add/Remove from slider)
   const handleToggleStatus = async (bannerId) => {
@@ -34,7 +35,7 @@ const ManageBanner = () => {
     );
 
         try{
-          const response = await  axios.patch(`${import.meta.env.VITE_API_URL}/banners/${bannerId}`,)
+          const response = await  axiosSecure.patch(`$/banners/${bannerId}`,)
           
         } 
         catch{

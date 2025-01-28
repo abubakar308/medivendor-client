@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoCart } from "react-icons/io5";
-
+import logo from '../../assets/logo.avif'
 
 const Navbar = () => {
     const { user, logOut } = useAuth()
@@ -32,15 +31,13 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
          <li><Link to='/'>Home</Link></li>
-    <li><Link to="/allsports">All Sports Equipment</Link></li>
-    <li><Link to="addequipment">Add Equipment</Link></li>
-    <li><Link to="myequipment">My Equipment List</Link></li>
+         <li><Link to="/shop">Shop</Link></li>
       </ul>
     </div>
-   <div className="flex items-center gap-1">
-   <a className="">Medicine Store</a>
-   <img className="w-12" src='' alt="" />
-   </div>
+   <Link to='/' className="flex items-center gap-1">
+   <img className="rounded-2xl w-10 h-10" src={logo} alt="logo" />
+   <Link  className="text-2xl">MediVendor</Link>
+   </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -48,12 +45,17 @@ const Navbar = () => {
     <li><Link to="/shop">Shop</Link></li>
     </ul>
     
-    <Link to='/cart' className="text-3xl">
+  </div>
+
+ 
+  <div className="navbar-end">
+    <div className="mr-6">
+       {/* <Link className="ml-10" to="myequipment">Language</Link> */}
+  <Link to='/cart' className="text-3xl flex justify-end">
     <IoCart></IoCart>
     </Link>
-  </div>
-  <Link className="ml-10" to="myequipment">Language</Link>
-  <div className="navbar-end">
+    </div>
+   
   <div className='relative'>
               <div className='flex flex-row items-center gap-3'>
                 {/* Dropdown btn */}
