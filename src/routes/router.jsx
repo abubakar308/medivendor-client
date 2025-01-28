@@ -16,6 +16,10 @@ import PaymentHistory from "../pages/Dashboard/User/PaymentHistory";
 import PaymentHistorySeller from "../pages/Dashboard/Seller/PaymentHistorySeller";
 import Salesreport from "../pages/Dashboard/Admin/Salesreport";
 import AskforBanner from "../pages/Dashboard/Seller/AskforBanner";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import SellerRoute from "./SellerRoute";
+import Invoice from "../pages/Invoice/Invoice";
 
 export const router = createBrowserRouter([
     {
@@ -36,33 +40,71 @@ export const router = createBrowserRouter([
             },
             {
               path: '/cart',
-              element: <CartPage></CartPage>
+              element: <PrivateRoute>
+                <CartPage />
+              </PrivateRoute>
+            },
+            {
+              path: '/invoice',
+              element: <PrivateRoute>
+                <Invoice />
+              </PrivateRoute>
             }
         ]
       },
       {
         path: '/dashboard',
-        element: <DashboardLayout />,
+        element: <PrivateRoute>
+          <DashboardLayout />
+        </PrivateRoute>,
         children: [
           {
             path: 'manage-category',
-            element: <Managecategory />
+            element: <PrivateRoute>
+              <AdminRoute>
+              <Managecategory />
+              </AdminRoute>
+            </PrivateRoute>
           },
           {
             path: 'manage-users',
-            element: <Manageuser />
+            element: <PrivateRoute>
+              <AdminRoute>
+              <Manageuser />
+              </AdminRoute>
+            </PrivateRoute>
           },
           {
             path: 'manage-banner',
-            element: <ManageBanner />
+            element: <PrivateRoute>
+              <AdminRoute>
+              <ManageBanner />
+              </AdminRoute>
+            </PrivateRoute>
           },
           {
             path: 'payment-management',
-            element: <Managepayment />
+            element: <PrivateRoute>
+              <AdminRoute>
+              <Managepayment />
+              </AdminRoute>
+            </PrivateRoute>
+          },
+          {
+            path: 'sales-report',
+            element: <PrivateRoute>
+              <AdminRoute>
+              <Salesreport />
+              </AdminRoute>
+            </PrivateRoute>
           },
           {
             path: 'manage-medicine',
-            element: <ManageMedicine />
+            element: <PrivateRoute>
+              <SellerRoute>
+              <ManageMedicine />
+              </SellerRoute>
+            </PrivateRoute>
           },
           {
             path: 'payment-history-user',
@@ -70,15 +112,19 @@ export const router = createBrowserRouter([
           },
           {
             path: 'payment-history',
-            element: <PaymentHistorySeller />
-          },
-          {
-            path: 'sales-report',
-            element: <Salesreport />
+            element: <PrivateRoute>
+              <SellerRoute>
+              <PaymentHistorySeller />
+              </SellerRoute>
+            </PrivateRoute>
           },
           {
             path: 'ask-for-advertisement',
-            element: <AskforBanner />
+            element: <PrivateRoute>
+              <SellerRoute>
+              <AskforBanner />
+              </SellerRoute>
+            </PrivateRoute>
           },
         ]
       },
