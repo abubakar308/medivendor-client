@@ -1,6 +1,7 @@
 import { Switch } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import axios from "axios";
 
 const ManageBanner = () => {
     const axiosSecure =useAxiosSecure()
@@ -35,8 +36,7 @@ const ManageBanner = () => {
     );
 
         try{
-          const response = await  axiosSecure.patch(`$/banners/${bannerId}`,)
-          
+          const response = await  axios.patch(`$/bannershow/${bannerId}`)
         } 
         catch{
             console.error("Error toggling status:");

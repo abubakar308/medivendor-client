@@ -5,10 +5,12 @@ import useAuth from "../../../hooks/useAuth";
 import { useState } from "react";
 import { imageUpload } from "../../../api/utils";
 import { Dialog } from "@headlessui/react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageMedicine = () => {
 
   const { user } = useAuth();
+  const axiosSecure = useAxiosSecure()
 
   const [isOpen, setIsOpen] = useState(false);
  
@@ -48,28 +50,23 @@ const ManageMedicine = () => {
           discountPercent,
           image: imageUrl,
       };
-      try {
-          const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/medicines`, medicine);
-          setIsOpen(false);
-          refetch();
-          console.log("Medicine added successfully:", data);
-          // Close modal
-      } catch (error) {
-          console.error("Failed to add medicine:", error);
-      }
+     axios.post(`${import.meta.env}/medicines`, medicine)
+          .then(()=>{
+            setIsOpen(false);
+            refetch();
+          })
   };
 
   const { data: medicines = [], isLoading, refetch } = useQuery({
     queryKey: ['medicines', user?.email],
     queryFn: async () => {
       if (!user?.email) return []; // Handle case where email is not available
-      const { data } = await axios(`${import.meta.env.VITE_API_URL}/added-medicines?email=${user?.email}`);
+      const { data } = await axiosSecure(`/added-medicines?email=${user?.email}`);
       return data;
     },
     enabled: !!user?.email,
   });
 
-  console.log(user)
   const { data: categories} = useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
@@ -78,6 +75,15 @@ const ManageMedicine = () => {
     },
   });
 
+  const handleDelete = id =>{
+    console.log(id)
+     axiosSecure.delete(`/medicine-remove/${id}`)
+     .then(()=>{
+        refetch()
+     })
+  }
+ 
+  if(isLoading) return <Loading />
 
       
     return (
@@ -119,9 +125,10 @@ const ManageMedicine = () => {
                          <button
                            className="mr-2 px-3 py-1 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                          >
-                           Edit
+                           Update
                          </button>
                          <button
+                         onClick={()=>handleDelete(medicine._id)}
                            className="px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600"
                          >
                            Delete

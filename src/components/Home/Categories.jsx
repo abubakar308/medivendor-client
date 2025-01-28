@@ -14,7 +14,9 @@ const Categories = () => {
       })
       
     return (
-        <div className="grid md:grid-cols-3 gap-3 rounded-2xl">
+        <div className="w-11/12 mx-auto my-3">
+            <h2 className="text-2xl text-center text-orange-600 py-3">Medicine Category</h2>
+            <div className="grid md:grid-cols-3 gap-4 rounded-2xl">
            {
             categories && categories.map(category=> <Link to={`medicine/${category.categoryName}`} key={category._id}>
             <div className="flex items-center gap-5 border" >
@@ -27,6 +29,7 @@ const Categories = () => {
             </div>
             </Link>)
             }
+        </div>
         </div>
     );
 };

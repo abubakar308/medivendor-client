@@ -49,12 +49,12 @@ const Navbar = () => {
 
  
   <div className="navbar-end">
-    <div className="mr-6">
+   { user?.email && <div className="mr-6">
        {/* <Link className="ml-10" to="myequipment">Language</Link> */}
   <Link to='/cart' className="text-3xl flex justify-end">
     <IoCart></IoCart>
     </Link>
-    </div>
+    </div>}
    
   <div className='relative'>
               <div className='flex flex-row items-center gap-3'>

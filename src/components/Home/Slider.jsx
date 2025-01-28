@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const Slider = () => {
-  const { data: banners = [], isLoading } = useQuery({
+  const { data: banners = [] } = useQuery({
     queryKey: ['banners'],
     queryFn: async () => {
       const { data } = await axios(`${import.meta.env.VITE_API_URL}/banners`);
@@ -17,7 +17,6 @@ const Slider = () => {
     },
    
   });
-  console.log(banners)
   
     return (
         <Swiper
