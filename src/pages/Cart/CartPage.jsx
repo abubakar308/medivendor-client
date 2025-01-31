@@ -2,10 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
+import { useState } from "react";
 
 
 const CartPage = () => {
     const {user} = useAuth();
+
+    const [cartItems, setCartItems] = useState([]);
+    console.log(cartItems)
+
+
 
     const {data: cartdata = [], isLoading, refetch } = useQuery({
         queryKey: ['cartdata', user?.email],
@@ -16,7 +22,9 @@ const CartPage = () => {
         enabled: !!user?.email,
       })
       
+      
       if(isLoading) return <Loading />;
+
       
       const removeItem = id =>{
         console.log(`Removing item with ID: ${id}`);
@@ -33,7 +41,7 @@ const CartPage = () => {
 
       const clearAllCart = ()=>{
         axios
-          .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user.email}`)
+          .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
           .then((data) => {
             console.log(data)
             refetch(); // Refetch only after successful deletion
@@ -41,7 +49,40 @@ const CartPage = () => {
           .catch((error) => {
             console.error("Failed to delete the item:", error);
           });
+      };
+
+      const handleQuantity = (value, id) => {
+    
+        if (value < 1) return;
+    
+        setCartItems(cartdata =>
+            cartdata.map(item =>
+                item._id === id ? { ...item, quantity: value } : item
+            )
+        );
+  
+      
+       
       }
+
+      const handleCheckout = async () => {
+        try {
+          const response = await axios.put("http://localhost:5000/update-cart", {
+              productId: id,
+              quantity: value,
+              email: user.email,
+          });
+  
+          if (response.data.success) {
+              console.log("Quantity updated successfully");
+          } else {
+              console.error("Failed to update quantity");
+          }
+      } catch (error) {
+          console.error("Error updating quantity:", error);
+      }
+      };
+      
     
     return (
         <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-md">
@@ -67,21 +108,17 @@ const CartPage = () => {
                     <td className="p-3 border-b border-gray-300">{item.companyName}</td>
                     <td className="p-3 border-b border-gray-300">${item.perUnitPrice}</td>
                     <td className="p-3 border-b border-gray-300 text-center">
-                      <div className="flex items-center justify-center space-x-2">
-                        <button
-                        //   onClick={() => decreaseQuantity(item.id)}
-                          className="px-2 py-1 bg-gray-300 rounded text-gray-800 hover:bg-gray-400"
-                        >
-                          -
-                        </button>
-                        <span>{item.quantity}</span>
-                        <button
-                        //   onClick={() => increaseQuantity(item.id)}
-                          className="px-2 py-1 bg-gray-300 rounded text-gray-800 hover:bg-gray-400"
-                        >
-                          +
-                        </button>
-                      </div>
+                    <div className='space-x-2 mt-2 text-sm'>
+                  <input
+                    onChange={e => handleQuantity(parseInt(e.target.value), item._id)}
+                    className=' p-2 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
+                    name='quantity'
+                    id='quantity'
+                    type='number'
+                    placeholder='Available quantity'
+                    required
+                  />
+                </div>
                     </td>
                     <td className="p-3 border-b border-gray-300">
                       <button
@@ -108,7 +145,7 @@ const CartPage = () => {
             </div>
             <div className="mt-6 text-right">
               <button
-                // onClick={handleCheckout}
+                onClick={handleCheckout}
                 className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               >
                 Checkout

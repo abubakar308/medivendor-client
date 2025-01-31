@@ -9,7 +9,7 @@ const SignUp = () => {
     const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
     const navigate = useNavigate()
     // form submit handler
-    const handleSubmit = async event => {
+    const handleSubmit = async (event) => {
       event.preventDefault()
       const form = event.target
       const name = form.name.value
@@ -17,8 +17,12 @@ const SignUp = () => {
       const password = form.password.value
       const image = form.image.files[0]
 
+      console.log(image)
+
       //send image data to imgbb
-      const photoURL = await imageUpload(image)
+      const photoURL = await imageUpload(image);
+  
+
       try {
         // User Registration
         const result = await createUser(email, password)

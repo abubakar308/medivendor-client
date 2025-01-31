@@ -1,4 +1,6 @@
 import { BiBarChart, BiCreditCard } from "react-icons/bi";
+import { FaAd, FaUsersCog } from "react-icons/fa";
+import { MdCategory } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const AdminMenu = () => {
@@ -9,7 +11,7 @@ const AdminMenu = () => {
             to="manage-users"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
-           
+           <FaUsersCog size={20}/>
             <span>Manage Users</span>
           </Link>
   
@@ -18,7 +20,7 @@ const AdminMenu = () => {
             to="manage-category"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
-           
+           <MdCategory size={20}/>
             <span>Manage Category</span>
           </Link>
   
@@ -45,7 +47,7 @@ const AdminMenu = () => {
             to="manage-banner"
             className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
-           
+           <FaAd size={20}/>
             <span>Manage Banner Advertise</span>
           </Link>
         </div>

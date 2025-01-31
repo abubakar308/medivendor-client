@@ -36,7 +36,7 @@ const ManageBanner = () => {
     );
 
         try{
-          const response = await  axios.patch(`$/bannershow/${bannerId}`)
+          const response = await  axiosSecure.patch(`/banner-show/${bannerId}`)
         } 
         catch{
             console.error("Error toggling status:");

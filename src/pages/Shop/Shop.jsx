@@ -16,8 +16,8 @@ const Shop = () => {
             <div className='container w-full mx-auto px-3 sm:px-5'>
         <div className='py-8'>
           <div className='-mx-4 sm:-mx-5 px-3 sm:px-5 py-3 overflow-x-auto'>
-            <div className=' min-w-full shadow rounded-lg overflow-hidden'>
-              <table className='w-full leading-normal'>
+            <div className=' min-w-full shadow rounded-lg overflow-x-auto'>
+              <table className='w-full min-w-max leading-normal'>
                 <thead>
                   <tr>
                     <th

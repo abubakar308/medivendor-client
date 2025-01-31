@@ -1,7 +1,7 @@
 import axios from 'axios'
 // Upload image and return image url
 
-export const imageUpload = async imageData => {
+export const imageUpload = async (imageData) => {
   const formData = new FormData()
   formData.append('image', imageData)
   const { data } = await axios.post(

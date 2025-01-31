@@ -58,7 +58,7 @@ const AuthProvider = ({children}) => {
        }
        else {
         setUser(currentUser)
-        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+        await axios(`${import.meta.env.VITE_API_URL}/logout`, {
           withCredentials: true,
         })
       }

@@ -5,8 +5,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
 
 const Slider = () => {
   const { data: banners = [] } = useQuery({
@@ -26,10 +24,6 @@ const Slider = () => {
           delay: 2500,
           disableOnInteraction: false,
         }}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper w-11/12 mx-auto p-5 my-10"
         >

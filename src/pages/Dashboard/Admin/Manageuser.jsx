@@ -10,10 +10,13 @@ const axiosSecure = useAxiosSecure()
     const {data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users', user?.email],
         queryFn: async () => {
-          const { data } = await axiosSecure(`/all-users/${user?.email}`)
+          const { data } = await axiosSecure(`/all-users/${user?.email}`);
           return data
         },
+        enabled: !!user?.email,
       });
+      if(isLoading) return <Loading />;
+
 
       const handleRoleChange = async (userId, newRole) => {
         try {
@@ -25,8 +28,8 @@ const axiosSecure = useAxiosSecure()
           console.error("Error updating role:", error);
         }
       };
-      if(isLoading) return <Loading />;
 
+      
     return (
         <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
