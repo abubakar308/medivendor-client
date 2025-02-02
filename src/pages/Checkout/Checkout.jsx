@@ -112,6 +112,15 @@ const Checkout = () => {
 
                 refetch();
                 navigate('/invoice');
+                axios
+                .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
+                .then((data) => {
+                  console.log(data)
+                  refetch(); // Refetch only after successful deletion
+                })
+                .catch((error) => {
+                  console.error("Failed to delete the item:", error);
+                });
             } catch (err) {
                 console.log(err);
             } finally {

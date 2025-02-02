@@ -6,7 +6,7 @@ import logo from '../../assets/logo.avif'
 const Invoice = () => {
     const {user} = useAuth();
 
-    const {data: orders = [], isLoading, refetch } = useQuery({
+    const {data: orders = [], isLoading} = useQuery({
       queryKey: ['purchases', user?.email],
       queryFn: async () => {
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/purchases?email=${user?.email}`)
@@ -39,6 +39,7 @@ const Invoice = () => {
           <p>Name: {user?.displayName}</p>
           <p>Email: {user?.email}</p>
         </div>
+        <p>Date: {new Date().toLocaleString()}</p>
 
         {/* Purchase Information */}
         <div>
@@ -55,17 +56,6 @@ const Invoice = () => {
             <tbody>
     {purchases?.products.map((product, index) => (
         <tr key={product._id}>
-          {/* {index === 0 && (
-            <>
-
-              <td
-                className="border border-gray-400 px-4 py-2"
-                // rowSpan={purchases.products.length}
-              >
-                ${purchases.totalAmount}
-              </td>
-            </>
-          )} */}
           <td className="border border-gray-400 px-4 py-2">{product.productName}</td>
           <td className="border border-gray-400 px-4 py-2">{product.quantity}</td>
           <td className="border border-gray-400 px-4 py-2">${product.price}</td>

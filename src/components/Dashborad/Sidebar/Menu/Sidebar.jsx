@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import useRole from "../../../../hooks/useRole";
 import AdminMenu from "./AdminMenu";
 import SellerMenu from "./SellerMenu";
+import { FiFileText } from "react-icons/fi";
 
 const Sidebar = () => {
 
@@ -18,6 +20,13 @@ const Sidebar = () => {
 
           {/* seller emnu */}
          { role === 'seller' && <SellerMenu />}
+         {role === 'user' && <Link
+                     to="payment-history-user"
+                     className="flex items-center gap-3 px-4 py-4 rounded-lg hover:bg-gray-700"
+                   >
+                     <FiFileText size={20} />
+                     <span>Payment History</span>
+                   </Link>}
         </nav>
       </div>
     );
