@@ -4,11 +4,13 @@ import axios from "axios";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MedicineData = ({ medicine }) => {
   const { _id, image, itemName, Selleremail, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
+  const [selected, setSelected] =  useState(false);
 
 
 
@@ -35,9 +37,31 @@ const MedicineData = ({ medicine }) => {
   }
 
   const handleSelect = async () => {
-    axios.post(`${import.meta.env.VITE_API_URL}/carts`, item); // Make sure VITE_API_URL is the correct environment variable
-
-    // navigate('/my-bids');
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/carts`, item);
+      
+      if (response.status === 200) {
+        setSelected(true)
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: `${item.itemName} Medicine added successfully`,
+          showConfirmButton: false,
+          timer: 2000,
+          width: "400px",
+        });
+      } 
+    } catch (error) {
+    
+      Swal.fire({
+        position: "top-center",
+        icon: "error",
+        title: `${error.response?.data || error.message}`,
+        showConfirmButton: false,
+        timer: 2000,
+        width: "400px",
+      });
+    }
   };
 
 
@@ -74,7 +98,7 @@ const MedicineData = ({ medicine }) => {
           <p className='text-gray-900 whitespace-no-wrap'>5</p>
         </td>
         <td className='p-3 border-b border-gray-200 bg-white text-sm'>
-          <button onClick={handleSelect} className='text-gray-900 whitespace-no-wrap'>select</button>
+          <button onClick={handleSelect} className='text-gray-900 btn whitespace-no-wrap'>{selected? 'selected': 'select'}</button>
         </td>
 
         <td className='p-3 border-b border-gray-200 bg-white text-sm'>
@@ -89,22 +113,22 @@ const MedicineData = ({ medicine }) => {
       </tr>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 flex w-screen items-center justify-center p-3">
-          <DialogPanel className="max-w-lg max-h-full space-y-4 border bg-green-300 p-4">
+          <DialogPanel className="max-w-lg max-h-full overflow-auto space-y-4 border bg-green-300 p-4">
             <DialogTitle className="font-bold">
               <img src={image} alt="" />
             </DialogTitle>
-            <p>{itemName}</p>
-            <p>{categoryName}</p>
+            <p>Name: {itemName}</p>
+            <p>Category: {categoryName}</p>
 
-            <p>{itemMassUnit}</p>
-            {discountPercent && <p>{discountPercent}</p>}
+            <p>itemMassUnit: {itemMassUnit}</p>
+            {discountPercent && <p>Discount: {discountPercent}</p>}
 
 
             <div className="flex gap-4">
               <p>Company: {companyName}</p>
               <p>Generic Name: {itemGenericName}</p>
             </div>
-            <Description>{shortDescription}</Description>
+            <Description>Description: {shortDescription}</Description>
           </DialogPanel>
         </div>
       </Dialog>

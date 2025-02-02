@@ -6,6 +6,7 @@ import { useState } from "react";
 import { imageUpload } from "../../../api/utils";
 import { Dialog } from "@headlessui/react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const ManageMedicine = () => {
 
@@ -50,7 +51,8 @@ const ManageMedicine = () => {
           discountPercent,
           image: imageUrl,
       };
-     axios.post(`${import.meta.env}/medicines`, medicine)
+
+     axiosSecure.post(`/medicines`, medicine)
           .then(()=>{
             setIsOpen(false);
             refetch();
@@ -76,11 +78,27 @@ const ManageMedicine = () => {
   });
 
   const handleDelete = id =>{
-    console.log(id)
-     axiosSecure.delete(`/medicine-remove/${id}`)
-     .then(()=>{
-        refetch()
-     })
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You want to clear all cart",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            axiosSecure.delete(`/medicine-remove/${id}`)
+            .then(()=>{
+               refetch()
+            })
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your carts has been creared",
+            icon: "success"
+          });
+        }
+      });
   }
  
   if(isLoading) return <Loading />

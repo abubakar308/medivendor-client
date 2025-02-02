@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { imageUpload } from "../../api/utils";
 import Loading from "../../Shared/Loading/Loading";
+import Swal from "sweetalert2";
 
 // eslint-disable-next-line react/prop-types
 const Categorytable = ({categories, refetch, isLoading}) => {
@@ -46,8 +47,18 @@ const Categorytable = ({categories, refetch, isLoading}) => {
       };
 
     const handleDelete = id =>{
-        console.log(id)
-        axios.delete(`${import.meta.env.VITE_API_URL}/category/${id}`,)
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You want to clear all cart",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axios.delete(`${import.meta.env.VITE_API_URL}/category/${id}`,)
         .then((data) => {
             console.log(data)
             refetch(); // Refetch only after successful deletion
@@ -55,6 +66,13 @@ const Categorytable = ({categories, refetch, isLoading}) => {
           .catch((error) => {
             console.error("Failed to delete the item:", error);
           });
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your carts has been creared",
+            icon: "success"
+          });
+        }
+      });
     }
     return (
         <div className="overflow-x-auto">

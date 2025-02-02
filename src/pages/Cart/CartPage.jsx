@@ -4,6 +4,7 @@ import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const CartPage = () => {
@@ -28,28 +29,62 @@ const CartPage = () => {
 
       
       const removeItem = id =>{
-        console.log(`Removing item with ID: ${id}`);
-        axios
-          .delete(`${import.meta.env.VITE_API_URL}/cart/${id}`)
-          .then((data) => {
-            console.log(data)
-            refetch(); // Refetch only after successful deletion
-          })
-          .catch((error) => {
-            console.error("Failed to delete the item:", error);
-          });
+
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You want to delete this cart",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axios
+            .delete(`${import.meta.env.VITE_API_URL}/cart/${id}`)
+            .then((data) => {
+              console.log(data)
+              refetch(); // Refetch only after successful deletion
+            })
+            .catch((error) => {
+              console.error("Failed to delete the item:", error);
+            });
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your cart has been deleted",
+              icon: "success"
+            });
+          }
+        });
       }
 
       const clearAllCart = ()=>{
-        axios
-          .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
-          .then((data) => {
-            console.log(data)
-            refetch(); // Refetch only after successful deletion
-          })
-          .catch((error) => {
-            console.error("Failed to delete the item:", error);
-          });
+
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You want to clear all cart",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            axios
+            .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
+            .then(() => {
+              refetch(); // Refetch only after successful deletion
+            })
+            .catch((error) => {
+              console.error("Failed to delete the item:", error);
+            })
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your carts has been cleared",
+              icon: "success"
+            });
+          }
+        });
       };
 
       const handleQuantity = (value, id) => {

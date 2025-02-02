@@ -31,7 +31,7 @@ const PaymentHistorySeller = () => {
       const total = paidTotal + pendingTotal;
     return (
         <div>
-  <h1>Total Ordera: {payments?.length }</h1>
+  <h1>Total Order: {payments?.length }</h1>
   {payments.length === 0 ? (
     <p>No orders found</p>
   ) : (
