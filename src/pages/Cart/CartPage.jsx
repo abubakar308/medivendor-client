@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const CartPage = () => {
@@ -60,29 +61,9 @@ const CartPage = () => {
                 item._id === id ? { ...item, quantity: value } : item
             )
         );
-  
-      
-       
       }
 
-      const handleCheckout = async () => {
-        try {
-          const response = await axios.put("http://localhost:5000/update-cart", {
-              productId: id,
-              quantity: value,
-              email: user.email,
-          });
-  
-          if (response.data.success) {
-              console.log("Quantity updated successfully");
-          } else {
-              console.error("Failed to update quantity");
-          }
-      } catch (error) {
-          console.error("Error updating quantity:", error);
-      }
-      };
-      
+
     
     return (
         <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-md">
@@ -144,12 +125,12 @@ const CartPage = () => {
               </div>
             </div>
             <div className="mt-6 text-right">
-              <button
-                onClick={handleCheckout}
+             <Link to='/checkout'>
+             <button
                 className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               >
                 Checkout
-              </button>
+              </button></Link>
             </div>
           </div>
         )}

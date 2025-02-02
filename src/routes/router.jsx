@@ -20,6 +20,11 @@ import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import SellerRoute from "./SellerRoute";
 import Invoice from "../pages/Invoice/Invoice";
+import Checkout from "../pages/Checkout/Checkout";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 export const router = createBrowserRouter([
     {
@@ -42,6 +47,14 @@ export const router = createBrowserRouter([
               path: '/cart',
               element: <PrivateRoute>
                 <CartPage />
+              </PrivateRoute>
+            },
+            {
+              path: '/checkout',
+              element: <PrivateRoute>
+      <Elements stripe={stripePromise}>
+        <Checkout />
+      </Elements>
               </PrivateRoute>
             },
             {
@@ -108,7 +121,9 @@ export const router = createBrowserRouter([
           },
           {
             path: 'payment-history-user',
-            element: <PaymentHistory />
+            element: <PrivateRoute>
+              <PaymentHistory />
+            </PrivateRoute>
           },
           {
             path: 'payment-history',

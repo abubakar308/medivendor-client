@@ -1,7 +1,21 @@
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import logo from '../../assets/logo.avif'
 
 const Invoice = () => {
-    const {user} = useAuth()
+    const {user} = useAuth();
+
+    const {data: orders = [], isLoading, refetch } = useQuery({
+      queryKey: ['purchases', user?.email],
+      queryFn: async () => {
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/purchases?email=${user?.email}`)
+        return data
+      },
+      enabled: !!user?.email,
+    })
+    
+    const purchases = orders[orders.length - 1];
     
     return (
         <div className="bg-gray-100 p-6">
@@ -12,20 +26,18 @@ const Invoice = () => {
         {/* Website Logo */}
         <div className="flex items-center justify-between mb-6">
           <img
-            src="/logo.png"
+            src={logo}
             alt="Website Logo"
             className="w-24"
           />
-          <h2 className="text-2xl font-bold text-gray-800">Invoice</h2>
+          <h2 className="text-2xl font-bold text-gray-800"></h2>
         </div>
 
         {/* User Information */}
         <div className="mb-4">
           <h3 className="text-lg font-semibold text-gray-700">User Information:</h3>
-          <p>Name: {user.name}</p>
-          <p>Email: {user.email}</p>
-          <p>Address: {user.address}</p>
-          <p>Phone: {user.phone}</p>
+          <p>Name: {user?.displayName}</p>
+          <p>Email: {user?.email}</p>
         </div>
 
         {/* Purchase Information */}
@@ -37,28 +49,45 @@ const Invoice = () => {
                 <th className="border border-gray-300 px-4 py-2 text-left">Item</th>
                 <th className="border border-gray-300 px-4 py-2">Quantity</th>
                 <th className="border border-gray-300 px-4 py-2">Price</th>
-                <th className="border border-gray-300 px-4 py-2">Subtotal</th>
+
               </tr>
             </thead>
             <tbody>
-              {purchases?.map((item, index) => (
-                <tr key={index} className="text-gray-700">
-                  <td className="border border-gray-300 px-4 py-2">{item.name}</td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    {item.quantity}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    ${item.price}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    ${item.quantity * item.price}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+    {purchases?.products.map((product, index) => (
+        <tr key={product._id}>
+          {/* {index === 0 && (
+            <>
+
+              <td
+                className="border border-gray-400 px-4 py-2"
+                // rowSpan={purchases.products.length}
+              >
+                ${purchases.totalAmount}
+              </td>
+            </>
+          )} */}
+          <td className="border border-gray-400 px-4 py-2">{product.productName}</td>
+          <td className="border border-gray-400 px-4 py-2">{product.quantity}</td>
+          <td className="border border-gray-400 px-4 py-2">${product.price}</td>
+        </tr>
+
+        
+      ))
+    }
+    {purchases?.totalPrice && (
+  <tr className="bg-gray-100">
+    <td colSpan="2" className="border border-gray-400 px-4 py-2 text-right font-bold">
+      Total Price
+    </td>
+    <td className="border border-gray-400 px-4 py-2 font-bold">
+      ${purchases.totalPrice}
+    </td>
+  </tr>
+)}
+    
+  </tbody>
           </table>
           <div className="flex justify-end mt-4">
-            <p className="text-lg font-bold text-gray-800">Total: ${total}</p>
           </div>
         </div>
       </div>

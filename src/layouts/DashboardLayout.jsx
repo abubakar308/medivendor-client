@@ -14,11 +14,10 @@ const DashboardLayout = () => {
     </div>
 
     {/* Main Content */}
-    <div className="flex-1 md:mt-20 mt-24">
+    <div className="flex-1 min-h-calc(100vh-320px) md:mt-20 mt-24">
       <Outlet />
     </div>
   </div>
-           <Footer />
         </div>
     );
 };
