@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import logo from '../../assets/logo.avif'
+import Loading from "../../Shared/Loading/Loading";
 
 const Invoice = () => {
     const {user} = useAuth();
@@ -14,11 +15,12 @@ const Invoice = () => {
       },
       enabled: !!user?.email,
     })
+    if(isLoading) return <Loading />;
     
     const purchases = orders[orders.length - 1];
     
     return (
-        <div className="bg-gray-100 p-6">
+        <div className="bg-base-100 p-6">
       <div
         id="invoice"
         className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6"
@@ -43,22 +45,24 @@ const Invoice = () => {
 
         {/* Purchase Information */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-700">Purchase Details:</h3>
+          <h3 className="text-lg font-semibold">Purchase Details:</h3>
           <table className="w-full border-collapse border border-gray-300 mt-4">
             <thead>
               <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2 text-left">Item</th>
-                <th className="border border-gray-300 px-4 py-2">Quantity</th>
-                <th className="border border-gray-300 px-4 py-2">Price</th>
+                <th>#</th>
+                <th className="border px-4 py-2 text-left">Item</th>
+                <th className="border px-4 py-2">Quantity</th>
+                <th className="border px-4 py-2">Price</th>
 
               </tr>
             </thead>
             <tbody>
     {purchases?.products.map((product, index) => (
         <tr key={product._id}>
-          <td className="border border-gray-400 px-4 py-2">{product.productName}</td>
-          <td className="border border-gray-400 px-4 py-2">{product.quantity}</td>
-          <td className="border border-gray-400 px-4 py-2">${product.price}</td>
+          <td>{index+1}</td>
+          <td className="border px-4 py-2">{product.productName}</td>
+          <td className="border px-4 py-2">{product.quantity}</td>
+          <td className="border px-4 py-2">${product.price}</td>
         </tr>
 
         

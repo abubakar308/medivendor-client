@@ -22,7 +22,7 @@ const Checkout = () => {
         enabled: !!user?.email,
       })
       
-      const grandTotal = cartdata.reduce((total, item) => total + item.perUnitPrice
+      const grandTotal = cartdata.reduce((total, item) => total + item.perUnitPrice * item?.quantity
       , 0);
       
 
@@ -70,18 +70,6 @@ const Checkout = () => {
           return
         }
     
-        // // Use your card Element with other Stripe.js APIs
-        // const { paymentMethod, error } = await stripe.createPaymentMethod({
-        //     type: 'card',
-        //     card: elements.getElement(CardElement),
-        //   });
-          
-        //   if (error) {
-        //       console.error(error);
-        //   } else {
-        //       setPaymentMethodId(paymentMethod.id); // Set paymentMethodId to send to backend
-        //   }
-        // confirm payment
        
         const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -92,7 +80,7 @@ const Checkout = () => {
                 },
             },
         });
-        console.log(paymentIntent)
+      
         if (paymentIntent.status === 'succeeded') {
             try {
                 // Create order for each item in the cart
@@ -133,9 +121,9 @@ const Checkout = () => {
 
     return (
         <div>
-            <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+            <div className="max-w-lg mx-auto p-6 shadow-md mt-10 rounded-lg">
                 <h2 className="text-xl font-bold mb-4">Checkout</h2>
-                <div className="border p-4 rounded bg-gray-50">
+                <div className="border p-4 rounded">
                     <p className="text-lg font-semibold">Grand Total: ${grandTotal}</p>
                 </div>
             </div>

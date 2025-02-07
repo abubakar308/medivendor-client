@@ -1,15 +1,16 @@
 import { Dialog } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useState } from "react";
 import Loading from "../../../Shared/Loading/Loading";
 import Categorytable from "../../../components/Dashborad/Categorytable";
 import { imageUpload } from "../../../api/utils";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const Managecategory = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+    const axiosSecure = useAxiosSecure()
 
 
     
@@ -17,7 +18,7 @@ const Managecategory = () => {
     const {data: categories = [], isLoading, refetch } = useQuery({
       queryKey: ['cartdata'],
       queryFn: async () => {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/categories`);
+        const { data } = await axiosSecure(`/categories`);
       return data;
       },
       // enabled: !!user?.email,
@@ -30,7 +31,6 @@ const Managecategory = () => {
  const form = e.target
       const name =form.categoryName.value;
       const photoFile = form.imageFile?.files[0];
-      console.log(photoFile)
  
       let imageUrl = '';
       if (photoFile) {
@@ -45,7 +45,7 @@ const Managecategory = () => {
         medicineCount: 0
       }
    
-    axios.post(`${import.meta.env.VITE_API_URL}/category`, category)
+    axiosSecure.post(`/category`, category)
     .then((data) => {
       console.log(data)
       refetch(); // Refetch only after successful deletion
@@ -67,16 +67,16 @@ const Managecategory = () => {
           <Categorytable categories={categories} refetch={refetch} isLoading={isLoading}></Categorytable>
     
            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-      <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-black bg-opacity-30">
-        <div className="max-w-lg max-h-full w-full space-y-4 border bg-white p-6 rounded-lg shadow-lg">
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-opacity-30">
+        <div className="max-w-lg max-h-full w-full  bg-blue-400 space-y-4 border p-6 rounded-lg shadow-lg">
           {/* Title */}
-          <h2 className="text-lg font-bold text-gray-800">Add New Category</h2>
+          <h2 className="text-lg font-bold">Add New Category</h2>
 
           {/* Form */}
           <form onSubmit={handleAddCategory} className="space-y-4">
             {/* Category Name */}
             <div>
-              <label htmlFor="categoryName" className="block text-sm font-medium text-gray-600">
+              <label htmlFor="categoryName" className="block text-sm font-medium">
                 Category Name
               </label>
               <input
@@ -90,7 +90,7 @@ const Managecategory = () => {
 
             {/* Category Image URL */}
             <div>
-              <label htmlFor="categoryImageUrl" className="block text-sm font-medium text-gray-600">
+              <label htmlFor="categoryImageUrl" className="block text-sm font-medium">
                 Category Image URL
               </label>
               <input
@@ -103,7 +103,7 @@ const Managecategory = () => {
 
             {/* Image Upload */}
             <div>
-              <label htmlFor="imageFile" className="block text-sm font-medium text-gray-600">
+              <label htmlFor="imageFile" className="block text-sm font-medium">
                 Or Upload an Image
               </label>
               <input

@@ -14,52 +14,52 @@ const Shop = () => {
       if(isLoading) return <Loading />;
     return (
             <div className='container w-full mx-auto px-3 sm:px-5'>
-        <div className='py-8'>
+        <div className='py-8 '>
           <div className='-mx-4 sm:-mx-5 px-3 sm:px-5 py-3 overflow-x-auto'>
-            <div className=' min-w-full shadow rounded-lg overflow-x-auto'>
-              <table className='w-full min-w-max leading-normal'>
+            <div className=' min-w-full  shadow rounded-lg overflow-x-auto'>
+            <table className="w-full table-custom min-w-max bg-base-100 shadow-lg rounded-lg leading-normal">
                 <thead>
                   <tr>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Image
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Name
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200  text-left text-sm uppercase font-normal'
                     >
                       Category
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Price
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Quantity
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Status
                     </th>
 
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3  border-b border-gray-200 text-left text-sm uppercase font-normal'
                     >
                       Action
                     </th>

@@ -4,11 +4,13 @@ import { useState } from "react";
 import { imageUpload } from "../../api/utils";
 import Loading from "../../Shared/Loading/Loading";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 // eslint-disable-next-line react/prop-types
 const Categorytable = ({categories, refetch, isLoading}) => {
    const [isOpen, setIsOpen] = useState(false);
    const [editCategory, setEditCategory] = useState(null); 
+   const axiosSecure = useAxiosSecure()
 
 
     const handleUpdate = async(e) =>{
@@ -29,10 +31,14 @@ const Categorytable = ({categories, refetch, isLoading}) => {
         image:  imageUrl,
       }
    
-    axios.patch(`${import.meta.env.VITE_API_URL}/category/${editCategory._id}`, category)
-    .then((data) => {
-      console.log(data)
-      refetch(); // Refetch only after successful deletion
+    axiosSecure.patch(`/category/${editCategory._id}`, category)
+    .then(() => {
+      Swal.fire({
+        text: `${category.categoryName} has been updated`,
+        icon: "success",
+       timer: 2000
+      })
+      refetch(); 
     })
     .catch((error) => {
       console.error("Failed to delete the item:", error);
@@ -50,7 +56,7 @@ const Categorytable = ({categories, refetch, isLoading}) => {
 
       Swal.fire({
         title: "Are you sure?",
-        text: "You want to clear all cart",
+        text: "You want to delete this category",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -79,7 +85,7 @@ const Categorytable = ({categories, refetch, isLoading}) => {
       <table className="table-auto border-collapse border border-gray-300 w-full text-left">
         {/* Table Head */}
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-base-100">
             <th className="border border-gray-300 px-4 py-2">#</th>
             <th className="border border-gray-300 px-4 py-2">Category Name</th>
             <th className="border border-gray-300 px-4 py-2">Image</th>
@@ -92,7 +98,7 @@ const Categorytable = ({categories, refetch, isLoading}) => {
           {
             // eslint-disable-next-line react/prop-types
             categories.map((category,index) => (
-              <tr key={category._id} className="hover:bg-gray-50">
+              <tr key={category._id}>
                 <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                 <td className="border border-gray-300 px-4 py-2">{category.categoryName}</td>
                 <td className="border border-gray-300 px-4 py-2">
@@ -122,10 +128,10 @@ const Categorytable = ({categories, refetch, isLoading}) => {
         </tbody>
       </table>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-            <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-black bg-opacity-30">
-              <div className="max-w-lg max-h-full w-full space-y-4 border bg-white p-6 rounded-lg shadow-lg">
+            <div className="fixed inset-0 flex w-screen items-center justify-center p-3 bg-opacity-30">
+              <div className="max-w-lg max-h-full w-full space-y-4 border bg-blue-400 p-6 rounded-lg shadow-lg">
                 {/* Title */}
-                <h2 className="text-lg font-bold text-gray-800">Update Category</h2>
+                <h2 className="text-lg font-bold">Update Category</h2>
       
                 {/* Form */}
                 <form onSubmit={handleUpdate} className="space-y-4">

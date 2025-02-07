@@ -35,10 +35,10 @@ const axiosSecure = useAxiosSecure()
       <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
 
       {/* Users Table */}
-      <div className="overflow-x-auto bg-white rounded-lg shadow-md">
+      <div className="overflow-x-auto rounded-lg shadow-md">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="bg-gray-100 border-b">
+            <tr className="bg-base-100 border-b">
               <th className="p-4 text-sm font-medium">Photo</th>
               <th className="p-4 text-sm font-medium">Name</th>
               <th className="p-4 text-sm font-medium">Email</th>
@@ -48,7 +48,7 @@ const axiosSecure = useAxiosSecure()
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id} className="border-b hover:bg-gray-50">
+              <tr key={user._id} className="border-b">
                 <td className="p-4">
                   <img
                     src={user.image}

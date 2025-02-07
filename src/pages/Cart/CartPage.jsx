@@ -2,19 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const CartPage = () => {
     const {user} = useAuth();
-
-    const [cartItems, setCartItems] = useState([]);
-    console.log(cartItems)
-
-
-
     const {data: cartdata = [], isLoading, refetch } = useQuery({
         queryKey: ['cartdata', user?.email],
         queryFn: async () => {
@@ -87,24 +81,23 @@ const CartPage = () => {
         });
       };
 
-      const handleQuantity = (value, id) => {
-    
-        if (value < 1) return;
-    
-        setCartItems(cartdata =>
-            cartdata.map(item =>
-                item._id === id ? { ...item, quantity: value } : item
-            )
-        );
+      const handleQuantity = (quantity, id) => {
+        console.log(quantity)
+        axios
+            .put(`${import.meta.env.VITE_API_URL}/cart/${id}`, {quantity})
+       
       }
 
 
     
     return (
-        <div className="p-6 max-w-4xl mx-auto bg-gray-100 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-6">My Cart</h2>
+        <div className="p-6 max-w-4xl mx-auto rounded-lg shadow-md">
+          <Helmet>
+            <title>Cart {user?.displayName}</title>
+          </Helmet>
+        <h2 className="text-2xl font-semibold mb-6">My Cart</h2>
         {cartdata?.length === 0 ? (
-          <p className="text-center text-gray-600">Your cart is empty.</p>
+          <p className="text-center">Your cart is empty.</p>
         ) : (
           <div>
             <table className="w-full text-left border-collapse">
@@ -126,8 +119,9 @@ const CartPage = () => {
                     <td className="p-3 border-b border-gray-300 text-center">
                     <div className='space-x-2 mt-2 text-sm'>
                   <input
+                  defaultValue={item?.quantity}
                     onChange={e => handleQuantity(parseInt(e.target.value), item._id)}
-                    className=' p-2 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
+                    className=' p-2  border border-lime-300 focus:outline-lime-500 rounded-md '
                     name='quantity'
                     id='quantity'
                     type='number'
