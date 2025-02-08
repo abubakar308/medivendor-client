@@ -110,7 +110,7 @@ const ManageMedicine = () => {
                        <h2 className="text-xl font-semibold">Manage Medicines</h2>
                        <button
                            onClick={() => setIsOpen(true)}
-                           className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                           className="px-4 py-2 rounded-lg bg-base-300 hover:bg-blue-600"
                        >
                            Add Medicine
                        </button>
@@ -118,7 +118,7 @@ const ManageMedicine = () => {
        
                    <table className="table-auto border-collapse border border-gray-300 w-full text-left">
                        <thead>
-                           <tr className="bg-gray-100">
+                           <tr className="bg-base-200">
                                <th className="border border-gray-300 px-4 py-2">#</th>
                                <th className="border border-gray-300 px-4 py-2">Item Name</th>
                                <th className="border border-gray-300 px-4 py-2">Generic Name</th>

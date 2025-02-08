@@ -27,7 +27,7 @@ const axiosSecure = useAxiosSecure()
       <h1 className="text-2xl font-bold mb-4">Payment Management</h1>
       <table className="w-full border border-gray-300 shadow-md">
         <thead>
-          <tr className="bg-gray-200">
+          <tr className="bg-base-200">
             <th className="p-2">User</th>
             <th className="p-2">Amount</th>
             <th className="p-2">Status</th>

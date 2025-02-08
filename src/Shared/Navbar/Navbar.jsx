@@ -56,17 +56,18 @@ const Navbar = () => {
     </ul>
     
   </div>
-
- 
-  <div className="navbar-end">
-   { user?.email && <div className="mr-6 flex">
+  { user?.email && <div className="mr-6 flex">
        {/* <Link className="ml-10" to="myequipment">Language</Link> */}
   <Link to='/cart' className="text-3xl flex justify-end">
     <IoCart></IoCart>
     </Link>
-    
-      {/* 🌙 Dark Mode Toggle Button */}
-      <label className="flex cursor-pointer gap-2">
+    </div>}
+ 
+  <div className="navbar-end">
+
+    {/* 🌙 Dark Mode Toggle Button */}
+<div>
+<label className="flex cursor-pointer gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -102,8 +103,7 @@ const Navbar = () => {
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
           </svg>
         </label>
-    </div>}
-   
+</div> 
   <div className='relative'>
               <div className='flex flex-row items-center gap-3'>
                 {/* Dropdown btn */}

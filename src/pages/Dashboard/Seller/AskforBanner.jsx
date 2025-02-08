@@ -59,7 +59,7 @@ const {user} = useAuth()
         <h2 className="text-xl font-semibold">Your Medicines for Advertisement</h2>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          className="px-4 py-2 bg-base-300 rounded-lg hover:bg-blue-600"
         >
           Add Advertisement
         </button>
@@ -68,7 +68,7 @@ const {user} = useAuth()
       {/* Medicines List */}
       <table className="table-auto border-collapse border border-gray-300 w-full text-left">
         <thead>
-          <tr className="bg-gray-100">
+          <tr className="bg-base-100">
             <th className="border border-gray-300 px-4 py-2">#</th>
             <th className="border border-gray-300 px-4 py-2">Item Name</th>
             <th className="border border-gray-300 px-4 py-2">Status</th>
@@ -76,7 +76,7 @@ const {user} = useAuth()
         </thead>
         <tbody>
           {banners?.map((medicine, index) => (
-            <tr key={medicine._id} className="hover:bg-gray-50">
+            <tr key={medicine._id}>
               <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
               <td className="border border-gray-300 px-4 py-2">{medicine.itemName}</td>
               <td className="border border-gray-300 px-4 py-2">

@@ -1,7 +1,6 @@
 import { Switch } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import axios from "axios";
 
 const ManageBanner = () => {
     const axiosSecure =useAxiosSecure()
@@ -57,7 +56,7 @@ const ManageBanner = () => {
         <div className="overflow-x-auto">
           <table className="table-auto w-full text-left border-collapse">
             <thead>
-              <tr className="bg-gray-100">
+              <tr className="bg-base-100">
                 <th className="border border-gray-300 px-4 py-2">#</th>
                 <th className="border border-gray-300 px-4 py-2">Image</th>
                 <th className="border border-gray-300 px-4 py-2">Medicine Name</th>
@@ -68,7 +67,7 @@ const ManageBanner = () => {
             </thead>
             <tbody>
               {banners?.map((banner, index) => (
-                <tr key={banner._id} className="hover:bg-gray-50">
+                <tr key={banner._id}>
                   <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                   <td className="border border-gray-300 px-4 py-2">
                     <img
