@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useRole from "../../../../hooks/useRole";
 import AdminMenu from "./AdminMenu";
 import SellerMenu from "./SellerMenu";
@@ -13,20 +13,20 @@ const Sidebar = () => {
           
         {/* Sidebar Header */}
   
-        {/* Navigation Links */}
+        {/* Navigation NavLinks */}
         <nav className="flex-1 p-4 space-y-2">
           {/* admin menu */}
         { role === 'admin' && <AdminMenu />}
 
           {/* seller emnu */}
          { role === 'seller' && <SellerMenu />}
-         {role === 'user' && <Link
+         {role === 'user' && <NavLink
                      to="payment-history-user"
                      className="flex items-center gap-3 px-4 py-4 rounded-lg hover:bg-gray-700"
                    >
                      <FiFileText size={20} />
                      <span>Payment History</span>
-                   </Link>}
+                   </NavLink>}
         </nav>
       </div>
     );

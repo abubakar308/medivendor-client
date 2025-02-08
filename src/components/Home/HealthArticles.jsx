@@ -25,7 +25,7 @@ const HealthArticles = () => {
       <h2 className="text-2xl font-bold text-green-400 mb-4">Health Articles & Tips</h2>
       <div className="grid gap-4">
         {articles.map((article) => (
-          <div key={article.id} className="bg-white p-4 rounded-xl shadow">
+          <div key={article.id} className="bg-base-100 p-4 rounded-xl shadow">
             <h3 className="text-lg font-semibold">{article.title}</h3>
             <p className="text-sm text-gray-600 mb-2">{article.date}</p>
             <p className="text-gray-700">{article.description}</p>

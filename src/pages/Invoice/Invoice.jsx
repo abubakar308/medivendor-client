@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-import logo from '../../assets/logo.avif'
+import logo from '../../assets/logo.webp'
 import Loading from "../../Shared/Loading/Loading";
 
 const Invoice = () => {

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 
@@ -82,7 +82,7 @@ const CartPage = () => {
       };
 
       const handleQuantity = (quantity, id) => {
-        console.log(quantity)
+        
         axios
             .put(`${import.meta.env.VITE_API_URL}/cart/${id}`, {quantity})
        
@@ -154,12 +154,12 @@ const CartPage = () => {
               </div>
             </div>
             <div className="mt-6 text-right">
-             <Link to='/checkout'>
+             <NavLink to='/checkout'>
              <button
                 className="px-6 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               >
                 Checkout
-              </button></Link>
+              </button></NavLink>
             </div>
           </div>
         )}

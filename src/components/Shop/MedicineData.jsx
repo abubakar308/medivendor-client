@@ -6,12 +6,14 @@ import { FaEye } from "react-icons/fa";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
 
 const MedicineData = ({ medicine }) => {
   const { _id, image, itemName, Selleremail, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
   const [selected, setSelected] =  useState(false);
+  const navigate = useNavigate()
 
 
 
@@ -39,6 +41,10 @@ const MedicineData = ({ medicine }) => {
   }
 
   const handleSelect = async () => {
+   if(!user?.email){
+    navigate('/login')
+   }
+   else
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/carts`, item);
       

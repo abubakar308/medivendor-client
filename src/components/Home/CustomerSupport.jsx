@@ -18,7 +18,7 @@ const CustomerSupport = () => {
       <div className="mb-6">
         <h3 className="text-xl font-semibold mb-3">Frequently Asked Questions</h3>
         {faqs.map((faq, index) => (
-          <div key={index} className="collapse collapse-arrow bg-white p-4 rounded-xl shadow mb-2">
+          <div key={index} className="collapse collapse-arrow bg-base-100 p-4 rounded-xl shadow mb-2">
             <input type="checkbox" checked={activeIndex === index} onChange={() => setActiveIndex(activeIndex === index ? null : index)} />
             <div className="collapse-title text-lg font-medium">{faq.question}</div>
             <div className="collapse-content text-gray-600">{faq.answer}</div>
@@ -27,7 +27,7 @@ const CustomerSupport = () => {
       </div>
 
       {/* Live Chat (Dummy) */}
-      <div className="bg-white p-4 rounded-xl shadow">
+      <div className="bg-bse-100 p-4 rounded-xl shadow">
         <h3 className="text-xl font-semibold mb-3">Live Chat</h3>
         <p className="text-gray-600">Live chat feature is coming soon! Stay tuned.</p>
       </div>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth, { saveUser } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { TbFidgetSpinner } from "react-icons/tb";
@@ -164,12 +164,12 @@ const SignUp = () => {
           </div>
           <p className='px-6 text-sm text-center text-gray-400'>
             Already have an account?{' '}
-            <Link
+            <NavLink
               to='/login'
               className='hover:underline hover:text-lime-500 text-gray-600'
             >
               Login
-            </Link>
+            </NavLink>
             .
           </p>
         </div>

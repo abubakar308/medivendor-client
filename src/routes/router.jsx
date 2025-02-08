@@ -23,6 +23,7 @@ import Invoice from "../pages/Invoice/Invoice";
 import Checkout from "../pages/Checkout/Checkout";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import MyProfile from "../components/Dashborad/MyProfile";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
@@ -62,6 +63,10 @@ export const router = createBrowserRouter([
               element: <PrivateRoute>
                 <Invoice />
               </PrivateRoute>
+            },
+            {
+              path: '/profile',
+              element: <MyProfile />
             }
         ]
       },
@@ -71,6 +76,14 @@ export const router = createBrowserRouter([
           <DashboardLayout />
         </PrivateRoute>,
         children: [
+          {
+            index: true,
+            element: <PrivateRoute>
+              <AdminRoute>
+              <Salesreport />
+              </AdminRoute>
+            </PrivateRoute>
+          },
           {
             path: 'manage-category',
             element: <PrivateRoute>
@@ -100,14 +113,6 @@ export const router = createBrowserRouter([
             element: <PrivateRoute>
               <AdminRoute>
               <Managepayment />
-              </AdminRoute>
-            </PrivateRoute>
-          },
-          {
-            path: 'sales-report',
-            element: <PrivateRoute>
-              <AdminRoute>
-              <Salesreport />
               </AdminRoute>
             </PrivateRoute>
           },

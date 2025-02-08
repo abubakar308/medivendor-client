@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .table-custom {
-    background-color: red !important;
-  } */
+   .active{
+    background-color: blue;
+    border-bottom: 2px solid red;
+   }

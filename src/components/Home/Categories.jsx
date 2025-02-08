@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { FaArrowRight } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Categories = () => {
 
@@ -18,7 +18,7 @@ const Categories = () => {
             <h2 className="text-2xl text-center text-orange-600 py-3">Medicine Category</h2>
             <div className="grid md:grid-cols-3 gap-4 rounded-2xl">
            {
-            categories && categories.map(category=> <Link to={`medicine/${category.categoryName}`} key={category._id}>
+            categories && categories.map(category=> <NavLink to={`medicine/${category.categoryName}`} key={category._id}>
             <div className="flex items-center gap-5 border" >
                 <img className="w-16 h-16" src={category.image} alt="" />
                 <div>
@@ -27,7 +27,7 @@ const Categories = () => {
                 </div>
                 <FaArrowRight></FaArrowRight>
             </div>
-            </Link>)
+            </NavLink>)
             }
         </div>
         </div>

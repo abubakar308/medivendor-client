@@ -7,15 +7,15 @@ const Footer = () => {
           
           {/* Logo & Description */}
           <div>
-            <h2 className="text-2xl font-bold text-white">MediVendor</h2>
+            <h2 className="text-2xl font-bold text-base-100">MediVendor</h2>
             <p className="mt-2 text-sm">
               Your trusted online pharmacy. We provide quality medicines at the best price.
             </p>
           </div>
   
-          {/* Quick Links */}
+          {/* Quick Navlinks */}
           <div>
-            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
+            <h3 className="text-lg font-semibold text-white">Quick Navlinks</h3>
             <ul className="mt-2 space-y-2">
               <li><a href="/about" className="hover:text-blue-400">About Us</a></li>
               <li><a href="/products" className="hover:text-blue-400">Our Products</a></li>
@@ -31,7 +31,7 @@ const Footer = () => {
               <a href="https://facebook.com" className="text-xl hover:text-blue-500"><FaFacebook /></a>
               <a href="https://twitter.com" className="text-xl hover:text-blue-400"><FaTwitter /></a>
               <a href="https://instagram.com" className="text-xl hover:text-pink-500"><FaInstagram /></a>
-              <a href="https://linkedin.com" className="text-xl hover:text-blue-600"><FaLinkedin /></a>
+              <a href="https://Navlinkedin.com" className="text-xl hover:text-blue-600"><FaLinkedin /></a>
             </div>
           </div>
         </div>

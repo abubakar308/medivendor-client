@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoCart } from "react-icons/io5";
-import logo from '../../assets/logo.avif'
+import logo from '../../assets/logo.webp'
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
     const { user, logOut } = useAuth()
@@ -40,27 +40,26 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-         <li><Link to='/'>Home</Link></li>
-         <li><Link to="/shop">Shop</Link></li>
+         <li><NavLink to='/'>Home</NavLink></li>
+         <li><NavLink to="/shop">Shop</NavLink></li>
       </ul>
     </div>
    <Link to='/' className="flex items-center gap-1">
    <img className="rounded-2xl w-10 h-10" src={logo} alt="logo" />
-   <Link  className="text-2xl">MediVendor</Link>
    </Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
-    <li><Link to='/'>Home</Link></li>
-    <li><Link to="/shop">Shop</Link></li>
+    <li><NavLink to='/'>Home</NavLink></li>
+    <li><NavLink to="/shop">Shop</NavLink></li>
     </ul>
     
   </div>
   { user?.email && <div className="mr-6 flex">
-       {/* <Link className="ml-10" to="myequipment">Language</Link> */}
-  <Link to='/cart' className="text-3xl flex justify-end">
+       {/* <NavLink className="ml-10" to="myequipment">Language</NavLink> */}
+  <NavLink to='/cart' className="text-3xl flex justify-end">
     <IoCart></IoCart>
-    </Link>
+    </NavLink>
     </div>}
  
   <div className="navbar-end">
@@ -133,21 +132,26 @@ const Navbar = () => {
               {isOpen && (
                 <div className='absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm'>
                   <div className='flex flex-col cursor-pointer'>
-                    <Link
+                    <NavLink
                       to='/'
                       className='block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold'
                     >
                       Home
-                    </Link>
+                    </NavLink>
 
                     {user ? (
                       <>
-                        <Link
+                                 <NavLink
+                          to='/profile'
+                          className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
+                        >Profile
+                        </NavLink>
+                        <NavLink
                           to='/dashboard'
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
                         >
                           Dashboard
-                        </Link>
+                        </NavLink>
                         <div
                           onClick={logOut}
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer'
@@ -157,18 +161,18 @@ const Navbar = () => {
                       </>
                     ) : (
                       <>
-                        <Link
+                        <NavLink
                           to='/login'
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
                         >
                           Login
-                        </Link>
-                        <Link
+                        </NavLink>
+                        <NavLink
                           to='/signup'
                           className='px-4 py-3 hover:bg-neutral-100 transition font-semibold'
                         >
                           Sign Up
-                        </Link>
+                        </NavLink>
                       </>
                     )}
                   </div>
