@@ -11,7 +11,7 @@ const CustomerSupport = () => {
       ];
     
     return (
-        <div className="p-6 max-w-3xl mx-auto border rounded-xl mb-10">
+        <div id="faq" className="p-6 max-w-3xl mx-auto border rounded-xl mb-10">
       <h2 className="text-2xl font-bold text-green-400 mb-4">Customer Support</h2>
       
       {/* FAQ Section */}

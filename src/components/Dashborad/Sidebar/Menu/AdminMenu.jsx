@@ -35,12 +35,8 @@ const AdminMenu = () => {
   
           {/* Sales Report */}
           <NavLink
-           to="/dashboard"
-           className={({ isActive }) =>
-            `flex items-center gap-3 px-4 py-2 rounded-lg ${
-              isActive ? "active text-white" : "hover:bg-gray-700 text-gray-300"
-            }`
-          }
+           to="sales-report"
+       className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-gray-700"
           >
             <BiBarChart size={20} />
             <span>Sales Report</span>

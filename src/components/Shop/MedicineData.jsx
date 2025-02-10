@@ -7,13 +7,15 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
+import useRole from "../../hooks/useRole";
 
 const MedicineData = ({ medicine }) => {
   const { _id, image, itemName, Selleremail, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useAuth();
   const [selected, setSelected] =  useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [role] = useRole()
 
 
 
@@ -43,6 +45,16 @@ const MedicineData = ({ medicine }) => {
   const handleSelect = async () => {
    if(!user?.email){
     navigate('/login')
+   };
+   if(role != 'user'){
+    Swal.fire({
+      position: "top-center",
+      icon: "error",
+      title: "only user select medicine",
+      showConfirmButton: false,
+      timer: 2000,
+      width: "400px",
+    });
    }
    else
     try {

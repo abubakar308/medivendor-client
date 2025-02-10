@@ -1,6 +1,7 @@
 import { Switch } from "@headlessui/react";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loading from "../../../Shared/Loading/Loading";
 
 const ManageBanner = () => {
     const axiosSecure =useAxiosSecure()
@@ -51,7 +52,7 @@ const ManageBanner = () => {
         <div className="container mx-auto p-6">
       <h2 className="text-2xl font-semibold mb-4">Manage Banner Advertise</h2>
       {loading ? (
-        <div>Loading...</div>
+       <Loading />
       ) : (
         <div className="overflow-x-auto">
           <table className="table-auto w-full text-left border-collapse">

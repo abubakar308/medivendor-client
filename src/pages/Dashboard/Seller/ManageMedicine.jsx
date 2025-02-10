@@ -221,33 +221,39 @@ const ManageMedicine = () => {
                                    </div>
        
                                    <div>
-                                       <label htmlFor="company" className="block text-sm font-medium text-gray-600">
-                                           Company
-                                       </label>
-                                       <select
-                                           id="company"
-                                           name="company"
-                                           className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                           required
-                                       >
-                                           <option value="">-- Select a Company --</option>
-                                           <option value="Pfizer">Pfizer</option>
-                                           <option value="Johnson & Johnson">Johnson & Johnson</option>
-                                           <option value="Novartis">Novartis</option>
-                                           <option value="Roche">Roche</option>
-                                           <option value="Sanofi">Sanofi</option>
-                                           <option value="Merck & Co.">Merck & Co.</option>
-                                           <option value="GlaxoSmithKline (GSK)">GlaxoSmithKline (GSK)</option>
-                                           <option value="AstraZeneca">AstraZeneca</option>
-                                           <option value="Bayer">Bayer</option>
-                                           <option value="AbbVie">AbbVie</option>
-                                           <option value="Eli Lilly">Eli Lilly</option>
-                                           <option value="Amgen">Amgen</option>
-                                           <option value="Bristol Myers Squibb">Bristol Myers Squibb</option>
-                                           <option value="Cipla">Cipla</option>
-                                           <option value="Dr. Reddy's Laboratories">Dr. Reddy&lsquo;s Laboratories</option>
-                                       </select>
-                                   </div>
+    <label htmlFor="company" className="block text-sm font-medium text-gray-600">
+        Company
+    </label>
+    <select
+        id="company"
+        name="company"
+        className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        required
+    >
+        <option value="">-- Select a Company --</option>
+
+        {/* Bangladeshi Pharmaceutical Companies */}
+        <option value="Square Pharmaceuticals">Square Pharmaceuticals</option>
+        <option value="Beximco Pharmaceuticals">Beximco Pharmaceuticals</option>
+        <option value="Incepta Pharmaceuticals">Incepta Pharmaceuticals</option>
+        <option value="Renata Limited">Renata Limited</option>
+        <option value="ACI Limited">ACI Limited</option>
+        <option value="Opsonin Pharma Limited">Opsonin Pharma Limited</option>
+        <option value="Eskayef Pharmaceuticals (SK+F)">Eskayef Pharmaceuticals (SK+F)</option>
+        <option value="Aristopharma Ltd">Aristopharma Ltd</option>
+        <option value="ACME Laboratories Ltd">ACME Laboratories Ltd</option>
+        <option value="Healthcare Pharmaceuticals Ltd">Healthcare Pharmaceuticals Ltd</option>
+        <option value="Beacon Pharmaceuticals Limited">Beacon Pharmaceuticals Limited</option>
+        <option value="Ziska Pharmaceuticals Ltd">Ziska Pharmaceuticals Ltd</option>
+        <option value="General Pharmaceuticals Ltd">General Pharmaceuticals Ltd</option>
+        <option value="Orion Pharma Ltd">Orion Pharma Ltd</option>
+        <option value="Unimed Unihealth Pharmaceuticals">Unimed Unihealth Pharmaceuticals</option>
+        <option value="Popular Pharmaceuticals Ltd">Popular Pharmaceuticals Ltd</option>
+        <option value="Navana Pharmaceuticals Ltd">Navana Pharmaceuticals Ltd</option>
+        <option value="Bio Pharma Laboratories Ltd">Bio Pharma Laboratories Ltd</option>
+        <option value="Globe Pharmaceuticals Ltd">Globe Pharmaceuticals Ltd</option>
+    </select>
+</div>
        
                                    <div>
                                        <label htmlFor="massUnit" className="block text-sm font-medium text-gray-600">

@@ -14,14 +14,14 @@ const Sidebar = () => {
         {/* Sidebar Header */}
   
         {/* Navigation NavLinks */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 mt-4 space-y-2">
           {/* admin menu */}
         { role === 'admin' && <AdminMenu />}
 
           {/* seller emnu */}
          { role === 'seller' && <SellerMenu />}
          {role === 'user' && <NavLink
-                     to="payment-history-user"
+                     to="payment"
                      className="flex items-center gap-3 px-4 py-4 rounded-lg hover:bg-gray-700"
                    >
                      <FiFileText size={20} />

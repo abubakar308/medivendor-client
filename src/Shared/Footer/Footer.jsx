@@ -7,7 +7,7 @@ const Footer = () => {
           
           {/* Logo & Description */}
           <div>
-            <h2 className="text-2xl font-bold text-base-100">MediVendor</h2>
+            <h2 className="text-2xl font-bold text-gray-200">MediVendor</h2>
             <p className="mt-2 text-sm">
               Your trusted online pharmacy. We provide quality medicines at the best price.
             </p>
@@ -15,12 +15,12 @@ const Footer = () => {
   
           {/* Quick Navlinks */}
           <div>
-            <h3 className="text-lg font-semibold text-white">Quick Navlinks</h3>
+            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
             <ul className="mt-2 space-y-2">
-              <li><a href="/about" className="hover:text-blue-400">About Us</a></li>
-              <li><a href="/products" className="hover:text-blue-400">Our Products</a></li>
-              <li><a href="/contact" className="hover:text-blue-400">Contact</a></li>
-              <li><a href="/faq" className="hover:text-blue-400">FAQs</a></li>
+              <li><a href="#about" className="hover:text-blue-400">About Us</a></li>
+              <li><a href="/shop" className="hover:text-blue-400">Our Products</a></li>
+              <li><a href="#contact" className="hover:text-blue-400">Contact</a></li>
+              <li><a href="#faq" className="hover:text-blue-400">FAQs</a></li>
             </ul>
           </div>
   
@@ -28,10 +28,10 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold text-white">Follow Us</h3>
             <div className="flex gap-4 mt-2">
-              <a href="https://facebook.com" className="text-xl hover:text-blue-500"><FaFacebook /></a>
-              <a href="https://twitter.com" className="text-xl hover:text-blue-400"><FaTwitter /></a>
-              <a href="https://instagram.com" className="text-xl hover:text-pink-500"><FaInstagram /></a>
-              <a href="https://Navlinkedin.com" className="text-xl hover:text-blue-600"><FaLinkedin /></a>
+              <a target="_blank" href="https://web.facebook.com/mdabubakar308" className="text-xl hover:text-blue-500"><FaFacebook /></a>
+              <a target="_blank" href="https://twitter.com" className="text-xl hover:text-blue-400"><FaTwitter /></a>
+              <a target="_blank" href="https://instagram.com/md.abubakar308" className="text-xl hover:text-pink-500"><FaInstagram /></a>
+              <a target="_blank" href="https://linkedin.com" className="text-xl hover:text-blue-600"><FaLinkedin /></a>
             </div>
           </div>
         </div>

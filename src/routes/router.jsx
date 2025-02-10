@@ -77,11 +77,17 @@ export const router = createBrowserRouter([
         </PrivateRoute>,
         children: [
           {
-            index: true,
+            path: 'sales-report',
             element: <PrivateRoute>
               <AdminRoute>
               <Salesreport />
               </AdminRoute>
+            </PrivateRoute>
+          },
+          {
+            path: 'payment',
+            element: <PrivateRoute>
+              <PaymentHistory />
             </PrivateRoute>
           },
           {
@@ -122,12 +128,6 @@ export const router = createBrowserRouter([
               <SellerRoute>
               <ManageMedicine />
               </SellerRoute>
-            </PrivateRoute>
-          },
-          {
-            path: 'payment-history-user',
-            element: <PrivateRoute>
-              <PaymentHistory />
             </PrivateRoute>
           },
           {
