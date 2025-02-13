@@ -7,7 +7,7 @@ const MyProfile = () => {
     const [role] =useRole();
     return (
         <div className="container mx-auto">
-            <h3 className="text-center text-2xl">Hi {user.displayName} Welcome</h3>
+            <h3 className="text-center text-2xl">Hi {user?.displayName} Welcome</h3>
   {/* User Header */}
   <div className="relative w-full">
     <img src={cover} alt="Cover" className="w-full h-[350px] md:h-[450px] object-cover rounded-lg shadow-md" />

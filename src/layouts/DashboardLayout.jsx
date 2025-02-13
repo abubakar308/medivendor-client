@@ -4,15 +4,21 @@ import Sidebar from "../components/Dashborad/Sidebar/Menu/Sidebar";
 import { useState } from "react";
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+  const [isSidebarOpen, setIsSidebarOpen] = useState(
+    JSON.parse(localStorage.getItem('sidebarState')) || false
+  );
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prevState) => {
+      const newState = !prevState;
+      localStorage.setItem('sidebarState', JSON.stringify(newState));
+      return newState;
+    });
+  };
   return (
     <div>
     {/* Navbar */}
-    <Navbar onToggleSidebar={() => { 
-    setIsSidebarOpen(!isSidebarOpen); 
-}} />
+    <Navbar onToggleSidebar={toggleSidebar} />
     <div className="flex">
       {/* Sidebar for Large Screens */}
       <div className="hidden md:block md:w-64">
@@ -22,7 +28,7 @@ const DashboardLayout = () => {
       {/* Sidebar for Mobile */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-black bg-opacity-50 z-50"
+          className="fixed md:hidden inset-0 bg-black bg-opacity-50 z-50"
           onClick={() => setIsSidebarOpen(false)}
         >
           <div className="w-64 bg-green-500 h-full shadow-lg p-4 relative">

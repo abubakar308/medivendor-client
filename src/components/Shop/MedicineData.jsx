@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import useRole from "../../hooks/useRole";
+import { useTranslation } from "react-i18next";
 
 const MedicineData = ({ medicine }) => {
   const { _id, image, itemName, Selleremail, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
@@ -16,6 +17,7 @@ const MedicineData = ({ medicine }) => {
   const [selected, setSelected] =  useState(false);
   const navigate = useNavigate();
   const [role] = useRole()
+  const { t } = useTranslation();
 
 
 
@@ -89,73 +91,83 @@ const MedicineData = ({ medicine }) => {
 
     <>
     <Helmet>
-  <title>{categoryName || "Shop"}</title>
-</Helmet>
-      <tr className="w-full">
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <div className='flex items-center'>
-            <div className='flex-shrink-0'>
-              <div className='block relative'>
-                <img
-                  alt='profile'
-                  src={image}
-                  className='mx-auto object-cover rounded h-10 w-15 '
-                />
-              </div>
+      <title>{categoryName || "Shop"}</title>
+    </Helmet>
+    <tr className="w-full">
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <div className="flex items-center">
+          <div className="flex-shrink-0">
+            <div className="block relative">
+              <img
+                alt="profile"
+                src={image}
+                className="mx-auto object-cover rounded h-10 w-15 "
+              />
             </div>
           </div>
-        </td>
-
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <p className=' whitespace-no-wrap'>{itemName}</p>
-        </td>
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <p className='whitespace-no-wrap'>
-            {categoryName}
-          </p>
-        </td>
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <p className='whitespace-no-wrap'>{perUnitPrice}</p>
-        </td>
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <p className='whitespace-no-wrap'>5</p>
-        </td>
-        <td className='p-3 border-b border-gray-200 text-sm'>
-          <button onClick={handleSelect} className='btn whitespace-no-wrap'>{selected? 'selected': 'select'}</button>
-        </td>
-
-        <td className='p-3 border-b text-sm'>
-          <button
-            onClick={() => handleClick(_id)}
-            className='relative btn disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight'
-          >
-            <span className='absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full'></span>
-            <span className='relative cursor-pointer'><FaEye></FaEye></span>
-          </button>
-        </td>
-      </tr>
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-3">
-          <DialogPanel className="max-w-lg max-h-full rounded-md overflow-auto space-y-4 border bg-green-300 p-4">
-            <DialogTitle className="font-bold">
-              <img src={image} alt="" />
-            </DialogTitle>
-            <p>Name: {itemName}</p>
-            <p>Category: {categoryName}</p>
-
-            <p>itemMassUnit: {itemMassUnit}</p>
-            {discountPercent && <p>Discount: {discountPercent}</p>}
-
-
-            <div className="flex gap-4">
-              <p>Company: {companyName}</p>
-              <p>Generic Name: {itemGenericName}</p>
-            </div>
-            <Description>Description: {shortDescription}</Description>
-          </DialogPanel>
         </div>
-      </Dialog>
-    </>
+      </td>
+
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <p className="whitespace-no-wrap">{itemName}</p>
+      </td>
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <p className="whitespace-no-wrap">{categoryName}</p>
+      </td>
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <p className="whitespace-no-wrap">{perUnitPrice}</p>
+      </td>
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <p className="whitespace-no-wrap">5</p>
+      </td>
+      <td className="p-3 border-b border-gray-200 text-sm">
+        <button onClick={handleSelect} className="btn whitespace-no-wrap">
+          {selected ? t("selected") : t("select")}  {/* Use translation here */}
+        </button>
+      </td>
+
+      <td className="p-3 border-b text-sm">
+        <button
+          onClick={() => handleClick(_id)}
+          className="relative btn disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight"
+        >
+          <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
+          <span className="relative cursor-pointer"><FaEye></FaEye></span>
+        </button>
+      </td>
+    </tr>
+    <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-3">
+        <DialogPanel className="max-w-lg max-h-full rounded-md overflow-auto space-y-4 border bg-green-300 p-4">
+          <DialogTitle className="font-bold">
+            <img src={image} alt="" />
+          </DialogTitle>
+          <p>{t("name")}: {itemName}</p> 
+          <p>{t("category")}: {categoryName}</p> 
+          <p>{t("itemMassUnit")}: {itemMassUnit}</p> 
+          <p>
+            {discountPercent > 0 ? (
+              <>
+                <span className="line-through text-gray-500">${perUnitPrice}</span> {/* Original Price */}
+                <span className="ml-2 text-red-500">
+                  ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)} 
+                </span>
+                <p className="text-green-600">{t("discount")}: {discountPercent}%</p>  
+              </>
+            ) : (
+              <span>{t("price")}: ${perUnitPrice}</span>  
+            )}
+          </p>
+
+          <div className="flex gap-4">
+            <p>{t("company")}: {companyName}</p> 
+            <p>{t("genericName")}: {itemGenericName}</p>  
+          </div>
+          <Description>{t("description")}: {shortDescription}</Description>
+        </DialogPanel>
+      </div>
+    </Dialog>
+  </>
 
   );
 };
