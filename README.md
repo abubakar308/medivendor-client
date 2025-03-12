@@ -19,8 +19,7 @@
 | Frontend  | Backend  | Database  | Authentication |
 |------------|----------|------------|----------------|
 | React.js | Node.js | MongoDB | Firebase Auth |
-| Tailwind CSS | Express.js | Firebase Firestore (if used) | JWT |
-| Redux (if used) | REST API | Mongoose (optional) | |
+| Tailwind CSS | Express.js |  JWT |
 
 ---
 
@@ -35,32 +34,11 @@ cd medivendor
 ```
 
 ### 🖥 2. Install Dependencies
-#### Frontend:
 ```sh
 cd client
 npm install
 ```
-#### Backend:
-```sh
-cd server
-npm install
-```
 
-### ⚙ 3. Set Up Environment Variables
-Create a **.env** file in the `server` directory and add:
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-FIREBASE_API_KEY=your_firebase_api_key
-```
-
-### ▶ 4. Run the Application
-#### Run the Backend:
-```sh
-cd server
-npm start
-```
 #### Run the Frontend:
 ```sh
 cd client
@@ -70,8 +48,7 @@ npm start
 ---
 
 ## 🌍 Deployment
-- **Frontend**: Deployed on **Netlify / Surge**  
-- **Backend**: Deployed on **Vercel**  
+- **Frontend**: Deployed on **Netlify / Surge**   
 
 ### 🔗 Live Demo: [MediVendor Live](https://medivendor-2b953.web.app)
 
