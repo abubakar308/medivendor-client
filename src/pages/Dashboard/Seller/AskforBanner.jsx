@@ -5,56 +5,65 @@ import { imageUpload } from "../../../api/utils";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 
-
 const AskforBanner = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState("");
+  const { user } = useAuth();
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-const [error, setError] = useState("");
+  const handleBnnerAdd = async (e) => {
+    e.preventDefault();
+    setError("");
+    const form = e.target;
+    const description = form.description.value;
+    const imageFile = form.imageFile?.files[0];
+    const itemName = form.medicine.value;
+    const Selleremail = user?.email;
+    const Status = 'pending';
 
-const {user} = useAuth()
-
-    const handleBnnerAdd = async (e) => {
-        e.preventDefault();
-        setError("");
-        const form = e.target
-        const description = form.description.value;
-        const imageFile = form.imageFile?.files[0];
-        const itemName = form.medicine.value
-        const Selleremail = user?.email
-        const Status = 'pending'
-
-        const image = await imageUpload(imageFile)
-        const bannerData= {
-            description, image, Selleremail, itemName, Status
-        }
-    
-         axios.post(`${import.meta.env.VITE_API_URL}/banners`, bannerData);
-        //   refetch();
-          setIsModalOpen(false);
+    try {
+      const image = await imageUpload(imageFile);
+      const bannerData = {
+        description,
+        image,
+        Selleremail,
+        itemName,
+        Status,
       };
-    
 
-      const { data: medicines = [], isLoading, refetch } = useQuery({
-        queryKey: ['medicines', user?.email],
-        queryFn: async () => {
-          if (!user?.email) return []; // Handle case where email is not available
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/added-medicines?email=${user?.email}`);
-          return data;
-        },
-        enabled: !!user?.email,
-      });
+      await axios.post(`${import.meta.env.VITE_API_URL}/banners`, bannerData);
+      setIsModalOpen(false);
+      refetch(); // Refetch banners data
+    } catch (err) {
+      setError("Failed to add banner. Please try again later.");
+    }
+  };
 
-      const { data: banners } = useQuery({
-        queryKey: ['banners', user?.email],
-        queryFn: async () => {
-          if (!user?.email) return []; // Handle case where email is not available
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/banners?email=${user?.email}`);
-          return data;
-        },
-        enabled: !!user?.email,
-      });
-    return (
-        <div>
+  const { data: medicines = [], isLoading: isMedicinesLoading } = useQuery({
+    queryKey: ['medicines', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/added-medicines?email=${user?.email}`);
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  const { data: banners, isLoading: isBannersLoading } = useQuery({
+    queryKey: ['banners', user?.email],
+    queryFn: async () => {
+      if (!user?.email) return [];
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/banners?email=${user?.email}`);
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  if (isMedicinesLoading || isBannersLoading) {
+    return <div>Loading...</div>; // Add a loading spinner or message
+  }
+
+  return (
+    <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Your Medicines for Advertisement</h2>
         <button
@@ -168,7 +177,7 @@ const {user} = useAuth()
         </div>
       </Dialog>
     </div>
-    );
+  );
 };
 
 export default AskforBanner;

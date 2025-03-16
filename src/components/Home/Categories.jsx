@@ -4,34 +4,50 @@ import { FaArrowRight } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 const Categories = () => {
+  const { data: categories, isLoading } = useQuery({
+    queryKey: ['category'],
+    queryFn: async () => {
+      const { data } = await axios(`${import.meta.env.VITE_API_URL}/categories`);
+      return data;
+    },
+  });
 
-    const {data: categories, isLoading } = useQuery({
-        queryKey: ['category'],
-        queryFn: async () => {
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/categories`)
-          return data
-        },
-      })
-      
+  // Loading spinner if data is still fetching
+  if (isLoading) {
     return (
-        <div className="w-11/12 mx-auto my-3">
-            <h2 className="text-2xl text-center text-orange-600 py-3">Medicine Category</h2>
-            <div className="grid md:grid-cols-3 gap-4 rounded-2xl">
-           {
-            categories && categories.map(category=> <NavLink to={`medicine/${category.categoryName}`} key={category._id}>
-            <div className="flex items-center gap-5 border" >
-                <img className="w-16 h-16" src={category.image} alt="" />
-                <div>
-                    <h3>{category.categoryName}</h3>
-                    <p>{category.medicineCount}</p>
-                </div>
-                <FaArrowRight></FaArrowRight>
-            </div>
-            </NavLink>)
-            }
-        </div>
-        </div>
+      <div className="flex justify-center items-center py-10">
+        <div className="w-16 h-16 border-t-4 border-primary rounded-full animate-spin"></div>
+      </div>
     );
+  }
+
+  return (
+    <div className="w-full md:w-11/12 mx-auto my-6">
+      <h2 className="text-3xl text-center text-accent py-3">Medicine Categories</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {categories && categories.map((category) => (
+          <NavLink 
+            to={`medicine/${category.categoryName}`} 
+            key={category._id}
+            className="flex items-center justify-between bg-base-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 p-4 rounded-lg shadow-md transition duration-300"
+          >
+            <div className="flex items-center gap-4">
+              <img 
+                className="w-16 h-16 object-cover rounded-full shadow-md" 
+                src={category.image} 
+                alt={category.categoryName} 
+              />
+              <div className="">
+                <h3 className="text-xl font-semibold">{category.categoryName}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{category.medicineCount} Medicines</p>
+              </div>
+            </div>
+            <FaArrowRight className="text-primary dark:text-accent text-xl" />
+          </NavLink>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Categories;

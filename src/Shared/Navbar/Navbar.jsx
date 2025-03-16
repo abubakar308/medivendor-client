@@ -55,7 +55,7 @@ const Navbar = ({ onToggleSidebar }) => {
   }, []);
 
   return (
-    <nav className="fixed z-50 w-full backdrop-blur-md bg-green-500 shadow-md">
+    <nav className="fixed z-50 w-full backdrop-blur-md bg-primary shadow-md">
       <div className="flex items-center justify-between px-6 py-3">
         {/* Left Side: Logo & Sidebar Toggle */}
         <div className="flex items-center gap-4">
