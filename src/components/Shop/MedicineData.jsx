@@ -103,16 +103,16 @@ const MedicineData = ({ medicine }) => {
         </td>
 
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-no-wrap text-gray-900 dark:text-white">{itemName}</p>
+          <p className="whitespace-no-wrap">{itemName}</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-no-wrap text-gray-900 dark:text-white">{categoryName}</p>
+          <p className="">{categoryName}</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-no-wrap text-gray-900 dark:text-white">${perUnitPrice}</p>
+          <p className="whitespace-no-wrap">${perUnitPrice}</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-no-wrap text-gray-900 dark:text-white">5</p>
+          <p className="whitespace-no-wrap dark:text-white">5</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
           <button onClick={handleSelect} className="btn whitespace-no-wrap">
