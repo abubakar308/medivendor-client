@@ -145,7 +145,7 @@ const MedicineData = ({ medicine }) => {
             <p className="">
               {discountPercent > 0 ? (
                 <>
-                  <span className="line-through text-gray-500">${perUnitPrice}</span>
+                  <span className="line-through">${perUnitPrice}</span>
                   <span className="ml-2 text-red-500">
                     ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}
                   </span>
@@ -157,10 +157,10 @@ const MedicineData = ({ medicine }) => {
             </p>
 
             <div className="flex gap-4">
-              <p className="text-gray-900 dark:text-white">{t("company")}: {companyName}</p>
-              <p className="text-gray-900 dark:text-white">{t("genericName")}: {itemGenericName}</p>
+              <p className="">{t("company")}: {companyName}</p>
+              <p className="">{t("genericName")}: {itemGenericName}</p>
             </div>
-            <Description className="text-gray-900 dark:text-white">{t("description")}: {shortDescription}</Description>
+            <Description className="">{t("description")}: {shortDescription}</Description>
           </DialogPanel>
         </div>
       </Dialog>

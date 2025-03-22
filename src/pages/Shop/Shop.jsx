@@ -54,7 +54,7 @@ const Shop = () => {
 
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-8">
+    <div className="container mx-auto px-4 sm:px-6">
       <h2 className="text-3xl text-center font-semibold text-primary py-4">Medicine Shop</h2>
 
       {/* Search Bar */}
@@ -93,7 +93,7 @@ const Shop = () => {
 
       {/* Medicines Table */}
       <div className="overflow-x-auto rounded-lg shadow-lg bg-base-100 dark:bg-neutral-800">
-        <table className="w-full table-auto min-w-max text-sm text-left text-gray-800 dark:text-gray-200">
+        <table className="w-full table-auto min-w-max text-sm text-left">
           <thead className="bg-secondary dark:bg-primary">
             <tr>
               <th className="px-5 py-3 border-b border-gray-300 dark:border-neutral-600">Image</th>

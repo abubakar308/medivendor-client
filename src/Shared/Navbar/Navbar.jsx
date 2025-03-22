@@ -1,28 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
-import { IoCart } from "react-icons/io5";
+import { IoCart, IoCloseSharp } from "react-icons/io5";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import logo from "../../assets/logo.webp";
+import logo from "../../assets/medIVENDOR.png";
 import Clock from "../Clock";
-import { useTranslation } from "react-i18next";
 
 const Navbar = ({ onToggleSidebar }) => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isShow, setIsShow] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-
-  const { t, i18n } = useTranslation(); // Use translation hook
-
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang).then(() => {
-    }).catch((error) => {
-      console.error("Error changing language:", error);
-    });
-  };
-
 
   // Theme State with Persistence
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -36,12 +26,10 @@ const Navbar = ({ onToggleSidebar }) => {
     setTheme(theme === "light" ? "dark" : "light");
   };
 
-  // Show Sidebar Toggle Only on Dashboard Pages
   useEffect(() => {
     setIsShow(location.pathname.startsWith("/dashboard"));
   }, [location.pathname]);
 
-  // Close Dropdown on Outside Click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (!event.target.closest(".dropdown-menu")) {
@@ -65,27 +53,29 @@ const Navbar = ({ onToggleSidebar }) => {
             </button>
           )}
           <Link to="/" className="flex items-center gap-2">
-            <img className="rounded-2xl w-10 h-10" src={logo} alt="logo" />
+            <img className="rounded-2xl w-12 h-10" src={logo} alt="logo" />
+            <span className="text-lg font-semibold text-white">MEDIVENDOR</span>
           </Link>
           <Clock />
         </div>
 
+        {/* Mobile Menu Button */}
+        <button className="lg:hidden text-white text-2xl" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+         {isMobileMenuOpen? <IoCloseSharp /> :<AiOutlineMenu />}
+        </button>
+
         {/* Center Navigation for Large Screens */}
         <ul className="hidden lg:flex space-x-6 text-white">
-          <li><NavLink to="/" className="hover:text-gray-200 p-2 rounded-xl">{t("home")}</NavLink></li>
-          <li><NavLink to="/shop" className="hover:text-gray-200 p-2 rounded-xl">{t("shop")}</NavLink></li>
+          <li><NavLink to="/" className="hover:text-gray-200 p-2 rounded-xl">Home</NavLink></li>
+          <li><NavLink to="/shop" className="hover:text-gray-200 p-2 rounded-xl">Shop</NavLink></li>
         </ul>
 
         {/* Right Side: User Actions */}
-        <div className="flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           {/* Dark Mode Toggle */}
-          <button onClick={toggleTheme} className="text-white">
+          <button onClick={toggleTheme} className="text-white text-xl">
             {theme === "light" ? "🌙" : "☀️"}
           </button>
-      <select onChange={(e) => changeLanguage(e.target.value)} className="p-1">
-        <option value="en">🇬🇧 English</option>
-        <option value="bn">🇧🇩 বাংলা</option>
-      </select>
 
           {/* Cart Icon */}
           {user?.email && (
@@ -126,6 +116,36 @@ const Navbar = ({ onToggleSidebar }) => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-primary text-white py-4 space-y-4">
+          <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Home</NavLink>
+          <NavLink to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Shop</NavLink>
+
+          {/* User Options in Mobile Menu */}
+          {user?.email && (
+            <>
+            <NavLink to='/profile' onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Profile</NavLink>
+              <NavLink to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Cart</NavLink>
+              <NavLink to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Dashboard</NavLink>
+              <button onClick={logOut} className="block w-full text-center py-2 hover:bg-gray-700">Logout</button>
+            </>
+          )}
+
+          {!user && (
+            <>
+              <NavLink to="/login" className="block text-center py-2 hover:bg-gray-700">Login</NavLink>
+              <NavLink to="/signup" className="block text-center py-2 hover:bg-gray-700">Sign Up</NavLink>
+            </>
+          )}
+
+          {/* Dark Mode Toggle */}
+          <button onClick={toggleTheme} className="block text-center py-2 text-white">
+            {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+          </button>
+        </div>
+      )}
     </nav>
   );
 };
