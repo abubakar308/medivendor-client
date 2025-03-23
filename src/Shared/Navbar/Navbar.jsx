@@ -101,7 +101,6 @@ const Navbar = ({ onToggleSidebar }) => {
               <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg overflow-hidden">
                 {user ? (
                   <>
-                    <NavLink to='/profile' className="block px-4 py-2 hover:bg-gray-200">Profile</NavLink>
                     <NavLink to='/dashboard' className="block px-4 py-2 hover:bg-gray-200">Dashboard</NavLink>
                     <button onClick={logOut} className="block w-full text-left px-4 py-2 hover:bg-gray-200">Logout</button>
                   </>

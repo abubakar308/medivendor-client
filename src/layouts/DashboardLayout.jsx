@@ -1,24 +1,21 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../Shared/Navbar/Navbar";
 import Sidebar from "../components/Dashborad/Sidebar/Menu/Sidebar";
 import { useState } from "react";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
-    JSON.parse(localStorage.getItem('sidebarState')) || false
+    JSON.parse(localStorage.getItem("sidebarState")) || false
   );
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prevState) => {
       const newState = !prevState;
-      localStorage.setItem('sidebarState', JSON.stringify(newState));
+      localStorage.setItem("sidebarState", JSON.stringify(newState));
       return newState;
     });
   };
+
   return (
-    <div>
-    {/* Navbar */}
-    <Navbar onToggleSidebar={toggleSidebar} />
     <div className="flex">
       {/* Sidebar for Large Screens */}
       <div className="hidden md:block md:w-64">
@@ -27,7 +24,7 @@ const DashboardLayout = () => {
 
       {/* Sidebar for Mobile */}
       {isSidebarOpen && (
-        <div 
+        <div
           className="fixed md:hidden inset-0 bg-black bg-opacity-50 z-50"
           onClick={() => setIsSidebarOpen(false)}
         >
@@ -44,12 +41,11 @@ const DashboardLayout = () => {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 min-h-[calc(100vh-320px)] md:mt-20 mt-24 p-4">
+      <div className="flex-1 min-h-screen p-4">
         <Outlet />
       </div>
     </div>
-  </div>
-    );
+  );
 };
 
 export default DashboardLayout;

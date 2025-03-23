@@ -64,10 +64,6 @@ export const router = createBrowserRouter([
                 <Invoice />
               </PrivateRoute>
             },
-            {
-              path: '/profile',
-              element: <MyProfile />
-            }
         ]
       },
       {
@@ -76,6 +72,14 @@ export const router = createBrowserRouter([
           <DashboardLayout />
         </PrivateRoute>,
         children: [
+          {
+            index: true, // 👈 This makes Profile the default route when visiting "/dashboard"
+            element: <MyProfile />,
+          },
+          {
+            path: "profile", // 👈 This allows visiting "/dashboard/profile" without errors
+            element: <MyProfile />,
+          },
           {
             path: 'sales-report',
             element: <PrivateRoute>

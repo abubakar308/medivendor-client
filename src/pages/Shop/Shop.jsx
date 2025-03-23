@@ -61,7 +61,7 @@ const Shop = () => {
       <div className="flex justify-between items-center mb-4">
         <input
           type="text"
-          className="px-4 py-2 border rounded-md w-1/3"
+          className="px-4 py-2 border bg-base-100 rounded-md w-1/3"
           placeholder="Search by Medicine Name"
           value={searchTerm}
           onChange={handleSearchChange}
@@ -73,7 +73,7 @@ const Shop = () => {
             name="sortBy"
             value={sortBy}
             onChange={handleSortChange}
-            className="px-4 py-2 border rounded-md"
+            className="px-4 py-2 border bg-base-100 rounded-md"
           >
             <option value="name">Sort by Name</option>
             <option value="price">Sort by Price</option>
@@ -83,7 +83,7 @@ const Shop = () => {
             name="sortOrder"
             value={sortOrder}
             onChange={handleSortChange}
-            className="px-4 py-2 border rounded-md"
+            className="px-4 py-2 border bg-base-100 rounded-md"
           >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
@@ -92,7 +92,7 @@ const Shop = () => {
       </div>
 
       {/* Medicines Table */}
-      <div className="overflow-x-auto rounded-lg shadow-lg bg-base-100 dark:bg-neutral-800">
+      <div className="overflow-x-auto rounded-lg shadow-lg">
         <table className="w-full table-auto min-w-max text-sm text-left">
           <thead className="bg-secondary dark:bg-primary">
             <tr>

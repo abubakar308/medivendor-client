@@ -29,7 +29,7 @@ const Categories = () => {
           <NavLink 
             to={`medicine/${category.categoryName}`} 
             key={category._id}
-            className="flex items-center justify-between bg-base-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 p-4 rounded-lg shadow-md transition duration-300"
+            className="flex items-center justify-between bg-base-100 hover:bg-accent p-4 rounded-lg shadow-lg border-2 transition duration-300"
           >
             <div className="flex items-center gap-4">
               <img 
@@ -39,7 +39,7 @@ const Categories = () => {
               />
               <div className="">
                 <h3 className="text-xl font-semibold">{category.categoryName}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{category.medicineCount} Medicines</p>
+                <p className="text-sm">{category.medicineCount} Medicines</p>
               </div>
             </div>
             <FaArrowRight className="text-primary dark:text-accent text-xl" />
