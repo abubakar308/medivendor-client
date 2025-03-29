@@ -25,10 +25,10 @@ const HealthArticles = () => {
     <h2 className="text-3xl font-bold text-primary mb-6 text-center">Health Articles & Tips</h2>
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {articles.map((article) => (
-        <div key={article.id} className="bg-white p-5 rounded-2xl shadow-lg transition-transform transform hover:scale-105">
+        <div key={article.id} className="p-5 rounded-2xl border shadow-lg transition-transform transform hover:scale-105">
           <h3 className="text-xl font-semibold text-secondary">{article.title}</h3>
-          <p className="text-sm text-gray-500 mb-3">{article.date}</p>
-          <p className="text-gray-700">{article.description}</p>
+          <p className="text-sm mb-3">{article.date}</p>
+          <p className="">{article.description}</p>
         </div>
       ))}
     </div>

@@ -52,13 +52,13 @@ const Login = () => {
     }
   };
 
-  const getRedirectPath = (role) => {
-    switch (role) {
-      case "admin": return "/admin/dashboard";
-      case "seller": return "/seller/dashboard";
-      default: return "/user/dashboard";
-    }
-  };
+  // const getRedirectPath = (role) => {
+  //   switch (role) {
+  //     case "admin": return "/admin/dashboard";
+  //     case "seller": return "/seller/dashboard";
+  //     default: return "/user/dashboard";
+  //   }
+  // };
 
   return (
     <div className='flex justify-center items-center min-h-screen bg-white'>

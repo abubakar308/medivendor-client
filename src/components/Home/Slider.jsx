@@ -38,7 +38,7 @@ const Slider = () => {
           banner.Status === 'approved' && (
             <SwiperSlide key={banner._id}>
               <div className="relative">
-                <img className="w-full md:h-[100vh] rounded-xl filter" src={banner.image} alt="Banner" />
+                <img className="w-full md:h-[100vh] filter" src={banner.image} alt="Banner" />
                 <p className="text-white absolute -mt-[20%] ml-[50%] transform -translate-x-1/2 -translate-y-1/2 bg-indigo-600 bg-opacity-50 p-4 rounded-lg">
                   {banner.description}
                 </p>
