@@ -1,48 +1,58 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Dashborad/Sidebar/Menu/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { FaBoxOpen, FaCross } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
+import { IoCloseSharp } from "react-icons/io5";
 
 const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(
     JSON.parse(localStorage.getItem("sidebarState")) || false
   );
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prevState) => {
-      const newState = !prevState;
-      localStorage.setItem("sidebarState", JSON.stringify(newState));
-      return newState;
-    });
-  };
+  useEffect(() => {
+    localStorage.setItem("sidebarState", JSON.stringify(isSidebarOpen));
+  }, [isSidebarOpen]);
 
   return (
-    <div className="flex">
-      {/* Sidebar for Large Screens */}
-      <div className="hidden md:block md:w-64">
-        <Sidebar />
-      </div>
-
+    <div>
       {/* Sidebar for Mobile */}
       {isSidebarOpen && (
         <div
-          className="fixed md:hidden inset-0 bg-black bg-opacity-50 z-50"
+          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex"
           onClick={() => setIsSidebarOpen(false)}
         >
-          <div className="w-64 bg-green-500 h-full shadow-lg p-4 relative">
+          <div
+            className="w-64 bg-green-500 h-full shadow-lg p-4 transform transition-transform duration-300 ease-in-out translate-x-0"
+            onClick={(e) => e.stopPropagation()}
+          >
             <Sidebar />
             <button
-              className="absolute top-4 right-4 text-white"
+              className="absolute top-0 -right-4  p-2 rounded-full shadow-md hover:bg-red-600 transition"
               onClick={() => setIsSidebarOpen(false)}
             >
-              ✖
+            <IoCloseSharp /> 
             </button>
           </div>
         </div>
       )}
 
-      {/* Main Content */}
-      <div className="flex-1 min-h-screen p-4">
-        <Outlet />
+      <div className="flex">
+        {/* Sidebar for Large Screens */}
+        <div className="hidden md:block md:w-64">
+          <Sidebar />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 min-h-screen p-4">
+          <div
+            className="md:hidden justify-end p-2 flex rounded-md mb-4"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <AiOutlineMenu />
+          </div>
+          <Outlet />
+        </div>
       </div>
     </div>
   );
