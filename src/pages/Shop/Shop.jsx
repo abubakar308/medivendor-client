@@ -55,7 +55,7 @@ const Shop = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6">
-      <h2 className="text-3xl text-center font-semibold text-primary py-4">Medicine Shop</h2>
+      <h2 className="text-3xl text-center font-semibold text-secondary py-4">Medicine Shop</h2>
 
       {/* Search Bar */}
       <div className="flex justify-between items-center mb-4">

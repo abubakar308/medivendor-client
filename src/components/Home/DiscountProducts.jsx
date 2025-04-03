@@ -19,7 +19,7 @@ const Discountmedicines = () => {
 
   return (
     <div className="py-10">
-      <h2 className="text-3xl text-center text-accent dark:text-teal-400 py-5">Discount Medicines</h2>
+      <h2 className="text-3xl text-center text-secondary py-3">Discount Medicines</h2>
       <Swiper
         spaceBetween={30}
         autoplay={{

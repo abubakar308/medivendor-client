@@ -35,22 +35,36 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const data = await signInWithGoogle();
-      await saveUser(data?.user);
-      navigate(getRedirectPath(role), { replace: true });
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Login Successful",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (err) {
-      console.log(err);
+ const handleGoogleSignIn = async () => {
+  try {
+    const data = await signInWithGoogle();
+    console.log("Google User Data:", data?.user); // ✅ Debugging
+
+    // Check if photoURL exists
+    if (!data?.user?.photoURL) {
+      console.warn("Google User does not have a profile photo!");
     }
-  };
+
+    await saveUser({
+      uid: data?.user?.uid,
+      displayName: data?.user?.displayName,
+      email: data?.user?.email,
+      photoURL: data?.user?.photoURL || "https://via.placeholder.com/150", // ✅ Default fallback
+    });
+
+    navigate(getRedirectPath(role), { replace: true });
+
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Login Successful",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  } catch (err) {
+    console.error("Google Sign-In Error:", err);
+  }
+};
 
   // const getRedirectPath = (role) => {
   //   switch (role) {
@@ -69,13 +83,42 @@ const Login = () => {
           <option value="seller">Seller</option>
           <option value="admin">Admin</option>
         </select>
-        <form onSubmit={handleSubmit} className='space-y-6'>
-          <input type='email' name='email' placeholder='Email' required className='w-full p-2 border rounded' />
-          <input type='password' name='password' placeholder='Password' required className='w-full p-2 border rounded' />
-          <button type='submit' className='bg-lime-500 w-full rounded-md py-3 text-white'>
-            {loading ? <TbFidgetSpinner className='animate-spin m-auto' /> : "Continue"}
-          </button>
-        </form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+  <input
+    type="email"
+    name="email"
+    placeholder="Email"
+    required
+    className="w-full p-2 border rounded"
+    value={
+      role === "admin"
+        ? "abubakar@gmail.com"
+        : role === "seller"
+        ? "siddique@gmail.com"
+        : ""
+    }
+    readOnly={role !== "user"} // User হলে টাইপ করতে পারবে
+  />
+  <input
+    type="password"
+    name="password"
+    placeholder="Password"
+    required
+    className="w-full p-2 border rounded"
+    value={
+      role === "admin"
+        ? "Abubakar@10"
+        : role === "seller"
+        ? "Siddique@10"
+        : ""
+    }
+    readOnly={role !== "user"}
+  />
+  <button type="submit" className="bg-lime-500 w-full rounded-md py-3 text-white">
+    {loading ? <TbFidgetSpinner className="animate-spin m-auto" /> : "Continue"}
+  </button>
+</form>
+
         <button onClick={handleGoogleSignIn} className='flex items-center justify-center space-x-2 border m-3 p-2 cursor-pointer'>
           <FcGoogle size={32} />
           <p>Continue with Google</p>

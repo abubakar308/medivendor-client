@@ -17,7 +17,7 @@ const MedicineData = ({ medicine }) => {
   const [selected, setSelected] = useState(false);
   const navigate = useNavigate();
   const [role] = useRole();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const item = {
     medicineId: _id,
@@ -115,17 +115,17 @@ const MedicineData = ({ medicine }) => {
           <p className="whitespace-nowrap dark:text-white">5</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <button onClick={handleSelect} className="btn whitespace-no-wrap">
-            {selected ? t("selected") : t("select")}
+          <button onClick={handleSelect} className="btn bg-accent whitespace-no-wrap">
+            {selected ? ("selected") : ("select")}
           </button>
         </td>
 
         <td className="p-3 border-b text-sm">
           <button
             onClick={() => handleClick(_id)}
-            className="relative btn disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-lime-900 leading-tight"
+            className="relative btn disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold leading-tight"
           >
-            <span className="absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full"></span>
+            <span className="absolute cursor-pointer inset-0 bg-accent  rounded-full"></span>
             <span className="relative cursor-pointer">
               <FaEye />
             </span>
@@ -139,28 +139,28 @@ const MedicineData = ({ medicine }) => {
             <DialogTitle className="font-bold text-primary">
               <img src={image} alt={itemName} className="w-full h-auto object-cover rounded-md" />
             </DialogTitle>
-            <p className="">{t("name")}: {itemName}</p>
-            <p className="">{t("category")}: {categoryName}</p>
-            <p className="">{t("itemMassUnit")}: {itemMassUnit}</p>
+            <p className="">name: {itemName}</p>
+            <p className="">category: {categoryName}</p>
+            <p className="">itemMassUnit: {itemMassUnit}</p>
             <p className="">
               {discountPercent > 0 ? (
                 <>
                   <span className="line-through">${perUnitPrice}</span>
-                  <span className="ml-2 text-red-500">
+                  <span className="ml-2 text-accent">
                     ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}
                   </span>
-                  <p className="text-green-600">{t("discount")}: {discountPercent}%</p>
+                  <p className="text-secondary">discount: {discountPercent}%</p>
                 </>
               ) : (
-                <span>{t("price")}: ${perUnitPrice}</span>
+                <span>price: ${perUnitPrice}</span>
               )}
             </p>
 
             <div className="flex gap-4">
-              <p className="">{t("company")}: {companyName}</p>
-              <p className="">{t("genericName")}: {itemGenericName}</p>
+              <p className="">company: {companyName}</p>
+              <p className="">genericName: {itemGenericName}</p>
             </div>
-            <Description className="">{t("description")}: {shortDescription}</Description>
+            <Description className="">description: {shortDescription}</Description>
           </DialogPanel>
         </div>
       </Dialog>

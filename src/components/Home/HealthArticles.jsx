@@ -22,7 +22,7 @@ const articles = [
 const HealthArticles = () => {
   return (
       <div className="p-6 max-w-4xl mx-auto border rounded-xl bg-background">
-    <h2 className="text-3xl font-bold text-primary mb-6 text-center">Health Articles & Tips</h2>
+    <h2 className="text-3xl text-secondary py-3 mb-6 text-center">Health Articles & Tips</h2>
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {articles.map((article) => (
         <div key={article.id} className="p-5 rounded-2xl border shadow-lg transition-transform transform hover:scale-105">

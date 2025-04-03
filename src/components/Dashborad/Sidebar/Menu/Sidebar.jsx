@@ -18,7 +18,7 @@ const Sidebar = ({ closeSidebar }) => {
   };
 
   return (
-    <div className="h-screen w-64 fixed flex flex-col bg-green-500 text-white dark:bg-neutral-800 shadow-lg">
+    <div className="h-screen w-64 fixed flex flex-col bg-primary text-white dark:bg-neutral-800 shadow-lg">
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4 border-b dark:border-neutral-600">
         <Link to="/" className="flex items-center gap-2">
