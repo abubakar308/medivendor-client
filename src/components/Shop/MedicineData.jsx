@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import useRole from "../../hooks/useRole";
-import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 const MedicineData = ({ medicine }) => {
   const { _id, image, itemName, Selleremail, categoryName, perUnitPrice, itemGenericName, companyName, discountPercent, shortDescription, itemMassUnit } = medicine;
@@ -17,7 +17,6 @@ const MedicineData = ({ medicine }) => {
   const [selected, setSelected] = useState(false);
   const navigate = useNavigate();
   const [role] = useRole();
-  // const { t } = useTranslation();
 
   const item = {
     medicineId: _id,
@@ -82,12 +81,14 @@ const MedicineData = ({ medicine }) => {
     }
   };
 
+  
+
   return (
     <>
       <Helmet>
         <title>{categoryName || "Shop"}</title>
       </Helmet>
-      <tr className="w-full">
+      <motion.tr className="w-full" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
         <td className="p-3 border-b border-gray-200 text-sm">
           <div className="flex items-center">
             <div className="flex-shrink-0">
@@ -125,13 +126,13 @@ const MedicineData = ({ medicine }) => {
             onClick={() => handleClick(_id)}
             className="relative btn disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold leading-tight"
           >
-            <span className="absolute cursor-pointer inset-0 bg-accent  rounded-full"></span>
+            <span className="absolute cursor-pointer inset-0 bg-accent rounded-full"></span>
             <span className="relative cursor-pointer">
               <FaEye />
             </span>
           </button>
         </td>
-      </tr>
+      </motion.tr>
 
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
         <div className="fixed inset-0 flex w-screen items-center justify-center p-3">

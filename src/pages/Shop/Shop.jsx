@@ -9,6 +9,7 @@ const Shop = () => {
   const [sortBy, setSortBy] = useState('name'); // Default sort by name
   const [sortOrder, setSortOrder] = useState('asc'); // Default sort order ascending
 
+  
   const { data: medicines, isLoading } = useQuery({
     queryKey: ['medicines'],
     queryFn: async () => {
@@ -58,10 +59,10 @@ const Shop = () => {
       <h2 className="text-3xl text-center font-semibold text-secondary py-4">Medicine Shop</h2>
 
       {/* Search Bar */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="md:flex space-y-3 md:space-y-0 justify-between items-center mb-4">
         <input
           type="text"
-          className="px-4 py-2 border bg-base-100 rounded-md w-1/3"
+          className="px-4 py-2 border bg-base-100 rounded-md"
           placeholder="Search by Medicine Name"
           value={searchTerm}
           onChange={handleSearchChange}

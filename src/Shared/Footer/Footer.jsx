@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaFacebook, FaGithub, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -19,7 +19,6 @@ const Footer = () => {
           <ul className="mt-2 space-y-2">
             <li><a href="/aboutus" className="hover:text-info">About Us</a></li>
             <li><a href="/shop" className="hover:text-info">Our Products</a></li>
-            <li><a href="#contact" className="hover:text-info">Contact</a></li>
           </ul>
         </div>
 
@@ -28,8 +27,8 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-secondary">Follow Us</h3>
           <div className="flex gap-4 mt-2">
             <a target="_blank" href="https://web.facebook.com/mdabubakar308" className="text-xl hover:text-info"><FaFacebook /></a>
-            <a target="_blank" href="https://twitter.com" className="text-xl hover:text-info"><FaTwitter /></a>
-            <a target="_blank" href="https://instagram.com/md.abubakar308" className="text-xl hover:text-error"><FaInstagram /></a>
+            <a target="_blank" href="https://x.com/MdAbuba19583062" className="text-xl hover:text-info"><FaTwitter /></a>
+            <a target="_blank" href="https://github.com/abubakar308" className="text-xl hover:text-error"><FaGithub /></a>
             <a target="_blank" href="https://www.linkedin.com/in/abubakar308" className="text-xl hover:text-secondary"><FaLinkedin /></a>
           </div>
         </div>

@@ -19,16 +19,16 @@ const DashboardLayout = () => {
       {/* Sidebar for Mobile */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 flex"
+          className="fixed inset-0 bg-opacity-50 z-50 flex"
           onClick={() => setIsSidebarOpen(false)}
         >
           <div
-            className="w-64 bg-green-500 h-full shadow-lg p-4 transform transition-transform duration-300 ease-in-out translate-x-0"
+            className="w-64 h-full shadow-lg transform transition-transform duration-300 ease-in-out translate-x-0"
             onClick={(e) => e.stopPropagation()}
           >
             <Sidebar />
             <button
-              className="absolute top-0 -right-4  p-2 rounded-full shadow-md hover:bg-red-600 transition"
+              className="absolute top-0 -right-4  p-2 rounded-full shadow-md transition"
               onClick={() => setIsSidebarOpen(false)}
             >
             <IoCloseSharp /> 

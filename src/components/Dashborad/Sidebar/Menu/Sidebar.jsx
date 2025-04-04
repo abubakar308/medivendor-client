@@ -18,7 +18,7 @@ const Sidebar = ({ closeSidebar }) => {
   };
 
   return (
-    <div className="h-screen w-64 fixed flex flex-col bg-primary text-white dark:bg-neutral-800 shadow-lg">
+    <div className="h-screen w-64 fixed flex flex-col bg-primary text-white  shadow-lg">
       {/* Sidebar Header */}
       <div className="flex items-center justify-between px-4 py-4 border-b dark:border-neutral-600">
         <Link to="/" className="flex items-center gap-2">
@@ -43,24 +43,26 @@ const Sidebar = ({ closeSidebar }) => {
             className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-700 dark:hover:bg-neutral-600 transition duration-200"
           >
             <FiFileText size={20} />
-            <span className="text-white">Payment History</span>
+            <span className="">Payment History</span>
           </NavLink>
         )}
 
-        {/* Profile Link */}
-        <NavLink
+       
+      </nav>
+
+       {/* Profile Link */}
+       <NavLink
           to="profile"
           onClick={closeSidebar}
           className="block px-4 py-3 rounded-lg hover:bg-gray-700 dark:hover:bg-neutral-600 transition duration-200"
         >
           Profile
         </NavLink>
-      </nav>
 
       {/* Logout Button */}
       <button
         onClick={handleLogout}
-        className="block w-full py-3 mb-5 md:mb-0 bg-red-500 hover:bg-red-600 text-white font-semibold transition duration-200"
+        className="py-3 mb-5 md:mb-0 bg-accent text-white font-semibold transition duration-200"
       >
         Logout
       </button>
