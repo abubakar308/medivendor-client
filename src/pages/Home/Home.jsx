@@ -4,6 +4,7 @@ import DiscountProducts from "../../components/Home/DiscountProducts";
 import Slider from "../../components/Home/Slider";
 import CustomerSupport from "../../components/Home/CustomerSupport";
 import HealthArticles from "../../components/Home/HealthArticles";
+import CustomerStories from "../../components/Home/CustomerStories";
 
 const Home = () => {
     return (
@@ -14,6 +15,7 @@ const Home = () => {
             <Slider></Slider>
             <Categories></Categories>
             <DiscountProducts></DiscountProducts>
+            <CustomerStories />
             <CustomerSupport />
             <HealthArticles />
         </div>
