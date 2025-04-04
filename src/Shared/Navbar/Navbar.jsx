@@ -68,13 +68,14 @@ const Navbar = ({ onToggleSidebar }) => {
         <ul className="hidden lg:flex space-x-6 text-white">
           <li><NavLink to="/" className="hover:text-gray-200 p-2 rounded-xl">Home</NavLink></li>
           <li><NavLink to="/shop" className="hover:text-gray-200 p-2 rounded-xl">Shop</NavLink></li>
+          <li><NavLink to="/aboutus" className="hover:text-gray-200 p-2 rounded-xl">AboutUs</NavLink></li>
         </ul>
 
         {/* Right Side: User Actions */}
         <div className="hidden lg:flex items-center gap-4">
           {/* Dark Mode Toggle */}
           <button onClick={toggleTheme} className="text-white text-xl">
-            {theme === "light" ? "🌙" : "☀️"}
+            {theme === "light" ? "☀️" : "🌙"}
           </button>
 
           {/* Cart Icon */}
@@ -121,11 +122,11 @@ const Navbar = ({ onToggleSidebar }) => {
         <div className="lg:hidden bg-primary text-white py-4 space-y-4">
           <NavLink to="/" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Home</NavLink>
           <NavLink to="/shop" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Shop</NavLink>
+          <NavLink to="/aboutus" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">AboutUs</NavLink>
 
           {/* User Options in Mobile Menu */}
           {user?.email && (
             <>
-            <NavLink to='/profile' onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Profile</NavLink>
               <NavLink to="/cart" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Cart</NavLink>
               <NavLink to="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="block text-center py-2 hover:bg-gray-700">Dashboard</NavLink>
               <button onClick={logOut} className="block w-full text-center py-2 hover:bg-gray-700">Logout</button>

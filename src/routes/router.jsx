@@ -24,6 +24,7 @@ import Checkout from "../pages/Checkout/Checkout";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import MyProfile from "../components/Dashborad/MyProfile";
+import Aboutus from "../pages/Aboutus";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
             {
               path: '/shop',
               element: <Shop></Shop>
+            },
+            {
+              path: '/aboutus',
+              element: <Aboutus />
             },
             {
               path: '/medicine/:category',
