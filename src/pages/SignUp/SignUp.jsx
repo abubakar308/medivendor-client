@@ -8,6 +8,7 @@ import { imageUpload } from "../../api/utils";
 const SignUp = () => {
     const { createUser, updateUserProfile, signInWithGoogle, loading } = useAuth();
     const navigate = useNavigate()
+    
     // form submit handler
     const handleSubmit = async (event) => {
       event.preventDefault()
@@ -17,7 +18,6 @@ const SignUp = () => {
       const password = form.password.value
       const image = form.image.files[0]
 
-      console.log(image)
 
       //send image data to imgbb
       const photoURL = await imageUpload(image);
@@ -29,7 +29,6 @@ const SignUp = () => {
   
         // Save username & profile photo
         await updateUserProfile(name, photoURL)
-        console.log(result)
         await saveUser({ ...result?.user, displayName: name, photoURL })
   
         navigate('/')
@@ -46,11 +45,13 @@ const SignUp = () => {
     }
   
     // Handle Google Signin
-    const handleGoogleSignIn = async () => {
+    const handleGoogleSignIn = () => {
       try {
         //User Registration using google
-        const data = signInWithGoogle()
-        await saveUser(data?.user)
+        signInWithGoogle()
+        .then(result=>{
+          const user = result?.user;
+          saveUser(user)
         navigate('/')
         Swal.fire({
             position: "center",
@@ -59,6 +60,7 @@ const SignUp = () => {
             showConfirmButton: false,
             timer: 1500
           });
+        }) 
       } catch (err) {
         console.log(err)
       }
