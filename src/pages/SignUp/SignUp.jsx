@@ -48,10 +48,10 @@ const SignUp = () => {
     const handleGoogleSignIn = () => {
       try {
         //User Registration using google
-        signInWithGoogle()
-        .then(result=>{
-          const user = result?.user;
-          saveUser(user)
+        const result = signInWithGoogle()
+        const user = result?.user
+        console.log(user)
+        saveUser(user)
         navigate('/')
         Swal.fire({
             position: "center",
@@ -60,7 +60,6 @@ const SignUp = () => {
             showConfirmButton: false,
             timer: 1500
           });
-        }) 
       } catch (err) {
         console.log(err)
       }

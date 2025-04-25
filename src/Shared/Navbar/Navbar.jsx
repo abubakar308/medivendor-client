@@ -43,8 +43,8 @@ const Navbar = ({ onToggleSidebar }) => {
   }, []);
 
   return (
-    <nav className="fixed z-50 w-full backdrop-blur-md bg-primary shadow-md">
-      <div className="flex items-center justify-between px-6 py-3">
+    <nav className="fixed z-50 w-full mx-auto backdrop-blur-md bg-primary shadow-md">
+      <div className="flex max-w-screen-xl mx-auto items-center justify-between px-6 py-3">
         {/* Left Side: Logo & Sidebar Toggle */}
         <div className="flex items-center gap-4">
           {isShow && (
@@ -75,7 +75,7 @@ const Navbar = ({ onToggleSidebar }) => {
         <div className="hidden lg:flex items-center gap-4">
           {/* Dark Mode Toggle */}
           <button onClick={toggleTheme} className="text-white text-xl">
-            {theme === "light" ? "☀️" : "🌙"}
+            {theme === "light" ? "🌙" : "☀️"}
           </button>
 
           {/* Cart Icon */}
