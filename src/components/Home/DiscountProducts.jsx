@@ -18,7 +18,7 @@ const Discountmedicines = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="py-10">
+    <div className="py-10 container mx-auto">
       <h2 className="text-3xl text-center text-secondary py-3">Discount Medicines</h2>
       <Swiper
         spaceBetween={30}
