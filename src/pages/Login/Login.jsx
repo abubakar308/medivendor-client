@@ -50,26 +50,38 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    signInWithGoogle()
-      .then(result => {
-        console.log(result); // Check if user info is correct here
-        const user = result?.user;
-  
-        saveUser(user); // You’re handling this already
-        navigate(getRedirectPath(role), { replace: true });
-  
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Login Successful",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      })
-      .catch(err => {
-        console.error("Google Sign-In failed:", err);
+  const handleGoogleSignIn = async() => {
+
+   try{
+     await signInWithGoogle()
+     navigate(getRedirectPath(role), { replace: true });
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1500,
       });
+
+      // .then(result => {
+      //   console.log(result); // Check if user info is correct here
+      //   const user = result?.user;
+  
+      //   saveUser(user); 
+      //   navigate(getRedirectPath(role), { replace: true });
+  
+      //   Swal.fire({
+      //     position: "top-end",
+      //     icon: "success",
+      //     title: "Login Successful",
+      //     showConfirmButton: false,
+      //     timer: 1500,
+      //   });
+      // })
+      }
+      catch(err) {
+        console.error("Google Sign-In failed:", err);
+      };
   };
 
   const getRedirectPath = (role) => {
