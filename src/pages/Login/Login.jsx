@@ -12,11 +12,11 @@ const Login = () => {
   const from = location?.state?.from?.pathname || "/";
   const [role, setRole] = useState("user");
 
-  // ✅ Controlled input states
+  // Controlled input states
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ Auto fill email/password for admin and seller
+  // Auto fill email/password but now editable
   useEffect(() => {
     if (role === "admin") {
       setEmail("abubakar@gmail.com");
@@ -34,7 +34,6 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       await signIn(email, password);
       navigate(getRedirectPath(role), { replace: true });
@@ -50,11 +49,24 @@ const Login = () => {
     }
   };
 
-  const handleGoogleSignIn = async() => {
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithGoogle();
 
-   try{
-     await signInWithGoogle()
-     navigate(getRedirectPath(role), { replace: true });
+      const user = result?.user;
+
+      if (user) {
+        const userInfo = {
+          name: user.displayName || "Unknown",
+          email: user.email || "No email",
+          photo: user.photoURL || "https://i.ibb.co/S32HNjD/default-avatar.png" // Default photo if missing
+        };
+
+        // Save user if needed
+        saveUser(userInfo); 
+      }
+
+      navigate(getRedirectPath(role), { replace: true });
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -62,26 +74,9 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-
-      // .then(result => {
-      //   console.log(result); // Check if user info is correct here
-      //   const user = result?.user;
-  
-      //   saveUser(user); 
-      //   navigate(getRedirectPath(role), { replace: true });
-  
-      //   Swal.fire({
-      //     position: "top-end",
-      //     icon: "success",
-      //     title: "Login Successful",
-      //     showConfirmButton: false,
-      //     timer: 1500,
-      //   });
-      // })
-      }
-      catch(err) {
-        console.error("Google Sign-In failed:", err);
-      };
+    } catch (err) {
+      console.error("Google Sign-In failed:", err);
+    }
   };
 
   const getRedirectPath = (role) => {
@@ -96,13 +91,13 @@ const Login = () => {
   };
 
   return (
-    <div className='flex justify-center items-center min-h-screen bg-white'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 w-full'>
-        <h1 className='my-3 text-4xl font-bold text-center'>Log In</h1>
+    <div className="flex justify-center items-center min-h-screen bg-white">
+      <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900 w-full">
+        <h1 className="my-3 text-4xl font-bold text-center">Log In</h1>
 
         {/* Role select */}
         <select
-          className='mb-4 p-2 border rounded'
+          className="mb-4 p-2 border rounded"
           value={role}
           onChange={(e) => setRole(e.target.value)}
         >
@@ -121,7 +116,6 @@ const Login = () => {
             className="w-full p-2 border rounded"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            readOnly={role !== "user"} // শুধু user টাইপ করতে পারবে
           />
           <input
             type="password"
@@ -131,7 +125,6 @@ const Login = () => {
             className="w-full p-2 border rounded"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            readOnly={role !== "user"}
           />
           <button type="submit" className="bg-lime-500 w-full rounded-md py-3 text-white">
             {loading ? <TbFidgetSpinner className="animate-spin m-auto" /> : "Continue"}
@@ -141,15 +134,18 @@ const Login = () => {
         {/* Google Sign-in */}
         <button
           onClick={handleGoogleSignIn}
-          className='flex items-center justify-center space-x-2 border m-3 p-2 cursor-pointer'
+          className="flex items-center justify-center space-x-2 border m-3 p-2 cursor-pointer"
         >
           <FcGoogle size={32} />
           <p>Continue with Google</p>
         </button>
 
         {/* Sign up redirect */}
-        <p className='text-sm text-center'>
-          Don't have an account? <NavLink to='/signup' className='text-lime-500'>Sign up</NavLink>.
+        <p className="text-sm text-center">
+          Don't have an account?{" "}
+          <NavLink to="/signup" className="text-lime-500">
+            Sign up
+          </NavLink>.
         </p>
       </div>
     </div>
