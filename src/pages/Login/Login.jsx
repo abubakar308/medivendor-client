@@ -55,15 +55,9 @@ const Login = () => {
 
       const user = result?.user;
 
+      // save user data
       if (user) {
-        const userInfo = {
-          name: user.displayName || "Unknown",
-          email: user.email || "No email",
-          photo: user.photoURL || "https://i.ibb.co/S32HNjD/default-avatar.png" // Default photo if missing
-        };
-
-        // Save user if needed
-        saveUser(userInfo); 
+        saveUser(user);
       }
 
       navigate(getRedirectPath(role), { replace: true });
