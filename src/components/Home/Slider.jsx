@@ -41,27 +41,27 @@ const Slider = () => {
             <SwiperSlide key={banner._id}>
               {/* Dynamic background image */}
               <div
-                className="relative w-full h-full bg-cover bg-center flex items-center justify-center"
-                style={{
-                  backgroundImage: `url(${banner.image})`,
-                }}
-              >
+  className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] bg-top bg-cover flex items-center justify-center"
+  style={{
+    backgroundImage: `url(${banner.image})`,
+  }}
+>
                 {/* Blue overlay for healthcare feel */}
                 <div className="absolute inset-0 bg-blue-900/30"></div>
 
                 {/* Content */}
                 <div className="relative z-10 flex flex-col justify-center items-center text-center h-full px-4 md:px-20 space-y-6 animate-fadeIn">
-                  <h2 className="text-3xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+                  <h2 className="text-2xl md:text-6xl font-bold text-white drop-shadow-lg">
                     {banner.title}
                   </h2>
-                  <p className="text-md md:text-xl text-white bg-blue-500/60 p-4 rounded-xl shadow-md max-w-2xl">
+                  <p className="text-md md:text-xl text-white p-4 rounded-xl shadow-md max-w-2xl">
                     {banner.description}
                   </p>
                   <button
                     className="px-8 py-3 bg-secondary transition-all duration-300 text-white font-semibold rounded-full shadow-lg"
-                    aria-label="Shop Now"
+                    aria-label="Explore More"
                   >
-                    Shop Now
+                    Explore More
                   </button>
                 </div>
               </div>

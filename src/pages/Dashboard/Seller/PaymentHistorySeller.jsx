@@ -20,8 +20,10 @@ const PaymentHistorySeller = () => {
 
   // Calculate totals
   payments.forEach(order => {
-    const orderTotal = order.products.reduce((sum, product) => sum + product.price, 0);
-
+    const orderTotal = order.products.reduce((sum, product) => {
+      return sum + (product.price * product.quantity); // Multiply price × quantity
+    }, 0);
+  
     if (order.orderStatus === "paid") {
       paidTotal += orderTotal;
     } else {
@@ -45,6 +47,8 @@ const PaymentHistorySeller = () => {
               <th className="py-2 px-4 border-b">Customer Email</th>
               <th className="py-2 px-4 border-b">Products</th>
               <th className="py-2 px-4 border-b">Price</th>
+              <th className="py-2 px-4 border-b">Quantity</th>
+              <th className="py-2 px-4 border-b">Total</th>
               <th className="py-2 px-4 border-b">Status</th>
             </tr>
           </thead>
@@ -61,8 +65,18 @@ const PaymentHistorySeller = () => {
                   ))}
                 </td>
                 <td className="py-2 px-4 border-b">
-                  ${order.products.reduce((sum, product) => sum + product.price, 0)}
-                </td>
+  {order.products.reduce((sum, product) => sum + Number(product.price), 0).toFixed(2)}
+</td>
+                <td className="py-2 px-4 border-b">
+                  {order.products.map(product => (
+                    <div key={product.productId}>
+                      <span>{product.quantity}</span>
+                    </div>
+                  ))}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+  {order.products.reduce((sum, product) => sum + (product.price * product.quantity), 0)}
+</td>
                 <td className="py-2 px-4 border-b">{order.orderStatus}</td>
               </tr>
             ))}

@@ -22,10 +22,9 @@ const MedicineData = ({ medicine }) => {
     medicineId: _id,
     image: image,
     itemName: itemName,
-    perUnitPrice: perUnitPrice,
+    perUnitPrice: discountPercent>0? (perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2) : perUnitPrice,
     quantity: 1,
     companyName: companyName,
-    discountPercent: discountPercent,
     itemMassUnit: itemMassUnit,
     SellerEmail: Selleremail,
     customerEmail: user?.email || "",
@@ -110,7 +109,19 @@ const MedicineData = ({ medicine }) => {
           <p className="">{categoryName}</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-nowrap">${perUnitPrice}</p>
+        <p className="">
+              {discountPercent > 0 ? (
+                <>
+                  <span className="line-through">${perUnitPrice}</span>
+                  <span className="ml-2 text-accent">
+                   
+                  </span>
+                  <p className="text-secondary">price:  ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}</p>
+                </>
+              ) : (
+                <span>price: ${perUnitPrice}</span>
+              )}
+            </p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
           <p className="whitespace-nowrap dark:text-white">5</p>
