@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import 'react-awesome-slider/dist/styles.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/css';
 
 const Slider = () => {
   const { data: banners = [], isLoading, error } = useQuery({
@@ -23,30 +23,53 @@ const Slider = () => {
   }
 
   return (
-    <Swiper
-      spaceBetween={30}
-      centeredSlides={true}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-      modules={[Autoplay, Pagination, Navigation]}
-      className="mySwiper"
-    >
-      {
-        banners?.map((banner) => (
+    <div className="relative w-full h-[90vh] overflow-hidden">
+      <Swiper
+        spaceBetween={30}
+        centeredSlides={true}
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        pagination={{ clickable: true }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="w-full h-full relative"
+      >
+        {banners?.map((banner) => (
           banner.Status === 'approved' && (
             <SwiperSlide key={banner._id}>
-             
-                <img className="w-full md:h-[100vh] filter" src={banner.image} alt="Banner" />
-                <p className="text-white absolute -mt-[20%] ml-[50%] transform -translate-x-1/2 -translate-y-1/2 bg-indigo-600 bg-opacity-50 p-4 rounded-lg">
-                  {banner.description}
-                </p>
+              {/* Dynamic background image */}
+              <div
+                className="relative w-full h-full bg-cover bg-center flex items-center justify-center"
+                style={{
+                  backgroundImage: `url(${banner.image})`,
+                }}
+              >
+                {/* Blue overlay for healthcare feel */}
+                <div className="absolute inset-0 bg-blue-900/30"></div>
+
+                {/* Content */}
+                <div className="relative z-10 flex flex-col justify-center items-center text-center h-full px-4 md:px-20 space-y-6 animate-fadeIn">
+                  <h2 className="text-3xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+                    {banner.title}
+                  </h2>
+                  <p className="text-md md:text-xl text-white bg-blue-500/60 p-4 rounded-xl shadow-md max-w-2xl">
+                    {banner.description}
+                  </p>
+                  <button
+                    className="px-8 py-3 bg-secondary transition-all duration-300 text-white font-semibold rounded-full shadow-lg"
+                    aria-label="Shop Now"
+                  >
+                    Shop Now
+                  </button>
+                </div>
+              </div>
             </SwiperSlide>
           )
-        ))
-      }
-    </Swiper>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

@@ -25,8 +25,8 @@ const Login = () => {
       setEmail("siddique@gmail.com");
       setPassword("Siddique@10");
     } else {
-      setEmail("");
-      setPassword("");
+      setEmail("user1@gmail.com");
+      setPassword("User@101");
     }
   }, [role]);
 

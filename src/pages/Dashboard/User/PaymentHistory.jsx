@@ -15,16 +15,19 @@ const PaymentHistory = () => {
     enabled: !!user?.email,
   });
 
+  if(isLoading){
+    return 
+  }
+
   return (
     <div className="p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-center mb-6 text-primary">
         Payment History
       </h2>
 
+  
       {/* Show Loading State */}
-      {isLoading ? (
-        <p className="text-center">Loading payment history...</p>
-      ) : payments?.transactions?.length > 0 ? (
+      { payments?.transactions?.length > 0 ? (
         <div className="overflow-x-auto">
           <table className="w-full border-collapse border border-gray-300 dark:border-gray-700">
             <thead className="bg-secondary">

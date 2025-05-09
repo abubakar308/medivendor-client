@@ -12,6 +12,7 @@ const SignUp = () => {
     // form submit handler
     const handleSubmit = async (event) => {
       event.preventDefault()
+      
       const form = event.target
       const name = form.name.value
       const email = form.email.value
