@@ -228,7 +228,21 @@ const ManageMedicine = () => {
                   required
                 >
                   <option value="">-- Select a Company --</option>
-                  {/* Add your company options here */}
+                                    <option value="Pfizer">Pfizer</option>
+                                    <option value="Johnson & Johnson">Johnson & Johnson</option>
+                                    <option value="Novartis">Novartis</option>
+                                    <option value="Roche">Roche</option>
+                                    <option value="Sanofi">Sanofi</option>
+                                    <option value="Merck & Co.">Merck & Co.</option>
+                                    <option value="GlaxoSmithKline (GSK)">GlaxoSmithKline (GSK)</option>
+                                    <option value="AstraZeneca">AstraZeneca</option>
+                                    <option value="Bayer">Bayer</option>
+                                    <option value="AbbVie">AbbVie</option>
+                                    <option value="Eli Lilly">Eli Lilly</option>
+                                    <option value="Amgen">Amgen</option>
+                                    <option value="Bristol Myers Squibb">Bristol Myers Squibb</option>
+                                    <option value="Cipla">Cipla</option>
+                                    <option value="Dr. Reddy's Laboratories">Dr. Reddy&lsquo;s Laboratories</option>
                 </select>
               </div>
 
