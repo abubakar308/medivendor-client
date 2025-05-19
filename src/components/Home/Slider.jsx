@@ -23,7 +23,7 @@ const Slider = () => {
   }
 
   return (
-    <div className="relative w-full h-[90vh] overflow-hidden">
+    <div className="relative w-full overflow-hidden">
       <Swiper
         spaceBetween={30}
         centeredSlides={true}

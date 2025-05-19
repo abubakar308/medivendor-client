@@ -5,6 +5,7 @@ import Slider from "../../components/Home/Slider";
 import CustomerSupport from "../../components/Home/CustomerSupport";
 import HealthArticles from "../../components/Home/HealthArticles";
 import CustomerStories from "../../components/Home/CustomerStories";
+import Newsletter from "../../components/Home/Newsletter";
 
 const Home = () => {
     return (
@@ -18,6 +19,7 @@ const Home = () => {
             <CustomerStories />
             <CustomerSupport />
             <HealthArticles />
+            <Newsletter />
         </div>
     );
 };
