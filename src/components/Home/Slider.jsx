@@ -21,6 +21,7 @@ const Slider = () => {
   if (error) {
     return <div className="text-center text-lg text-red-500">Error loading banners</div>;
   }
+  
 
   return (
     <div className="relative w-full overflow-hidden">
