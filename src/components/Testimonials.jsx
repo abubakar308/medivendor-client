@@ -26,7 +26,7 @@ const Testimonials = () => {
   return (
     <div className="text-center p-6 container mx-auto">
       <h2 className="text-3xl font-bold text-secondary mb-2">What Our Customers Say</h2>
-      <p className="text-lg text-gray-600 mb-6">Real stories from real people. Trusted by thousands across the country.</p>
+      <p className="text-lg mb-6">Real stories from real people. Trusted by thousands across the country.</p>
 
       <Swiper
         spaceBetween={30}
@@ -48,8 +48,8 @@ const Testimonials = () => {
                 alt={testimonial.name}
                 className="w-20 h-20 rounded-full object-cover shadow-md"
               />
-              <p className="text-xl font-semibold text-gray-800">{testimonial.name}</p>
-              <p className="max-w-xl text-gray-600 italic">{testimonial.feedback}</p>
+              <p className="text-xl font-semibold">{testimonial.name}</p>
+              <p className="max-w-xl  italic">{testimonial.feedback}</p>
             </div>
           </SwiperSlide>
         ))}

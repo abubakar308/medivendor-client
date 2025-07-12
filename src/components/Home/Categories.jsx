@@ -30,7 +30,7 @@ const Categories = () => {
           <NavLink 
             to={`medicine/${category.categoryName}`} 
             key={category._id}
-            className="flex items-center justify-between bg-base-100 dark:bg-base-200 hover:bg-accent p-4 rounded-lg shadow-lg border-2 transition duration-300"
+            className="flex items-center justify-between bg-base-200 hover:bg-accent p-4 rounded-lg shadow-lg border-2 transition duration-300"
           >
             <motion.div className="flex items-center gap-4">
               <img 
