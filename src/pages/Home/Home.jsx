@@ -6,7 +6,7 @@ import CustomerSupport from "../../components/Home/CustomerSupport";
 import HealthArticles from "../../components/Home/HealthArticles";
 import CustomerStories from "../../components/Home/CustomerStories";
 import Newsletter from "../../components/Home/Newsletter";
-import Testimonials from "../../components/Testimonials";
+// import Testimonials from "../../components/Testimonials";
 
 const Home = () => {
     return (
@@ -20,7 +20,7 @@ const Home = () => {
             <CustomerStories />
             <CustomerSupport />
             <HealthArticles />
-            <Testimonials />
+            {/* <Testimonials /> */}
             <Newsletter />
         </div>
     );
