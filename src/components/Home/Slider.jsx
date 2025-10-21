@@ -14,13 +14,13 @@ const Slider = () => {
     },
   });
 
-  if (isLoading) {
-    return <div className="text-center text-lg text-indigo-600">Loading banners...</div>;
-  }
+  // if (isLoading) {
+  //   return <div className="text-center text-lg text-indigo-600">Loading banners...</div>;
+  // }
 
-  if (error) {
-    return <div className="text-center text-lg text-red-500">Error loading banners</div>;
-  }
+  // if (error) {
+  //   return <div className="text-center text-lg text-red-500">Error loading banners</div>;
+  // }
   
 
   return (
