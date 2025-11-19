@@ -6,156 +6,211 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
+
 const Checkout = () => {
-    const {user} = useAuth();
-    const navigate = useNavigate()
-    const axiosSecure = useAxiosSecure()
-    const [clientSecret, setClientSecret] = useState('')
-    const [processing, setProcessing] = useState(false)
-    
-    const {data: cartdata = [], isLoading, refetch } = useQuery({
-        queryKey: ['cartdata', user?.email],
-        queryFn: async () => {
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
-          return data
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
+
+  const [clientSecret, setClientSecret] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("stripe"); // default stripe
+
+  const stripe = useStripe();
+  const elements = useElements();
+
+  // =============================
+  // LOAD CART DATA
+  // =============================
+  const {
+    data: cartdata = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["cartdata", user?.email],
+    queryFn: async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`
+      );
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  if (isLoading) return <Loading />;
+
+  // Calculate total
+  const grandTotal = cartdata.reduce(
+    (total, item) => total + item.perUnitPrice * item.quantity,
+    0
+  );
+
+  // =============================
+  // STRIPE PAYMENT INTENT
+  // =============================
+  useEffect(() => {
+    if (grandTotal > 0 && paymentMethod === "stripe") {
+      createPaymentIntent();
+    }
+  }, [grandTotal, paymentMethod]);
+
+  const createPaymentIntent = async () => {
+    try {
+      const { data } = await axiosSecure.post("/create-payment-intent", {
+        totalAmount: grandTotal,
+      });
+      setClientSecret(data.clientSecret);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // =============================
+  // CLEAR CART FUNCTION
+  // =============================
+  const clearCart = async () => {
+    try {
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`
+      );
+      await refetch();
+    } catch (err) {
+      console.log("Failed to clear cart:", err);
+    }
+  };
+
+  // =============================
+  // HANDLE STRIPE PAYMENT
+  // =============================
+  const handleStripePayment = async () => {
+    const card = elements.getElement(CardElement);
+    if (!card) return;
+
+    const { paymentIntent, error } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card,
+          billing_details: {
+            name: user?.displayName,
+            email: user?.email,
+          },
         },
-        enabled: !!user?.email,
-      })
-      
-      const grandTotal = cartdata.reduce((total, item) => total + item.perUnitPrice * item?.quantity
-      , 0);
-      
-
-      useEffect(() => { 
-            getPaymentIntent();
-    }, [grandTotal]); 
-
-      console.log(clientSecret)
-
-
-      const getPaymentIntent = async () => {
-        try {
-            const { data } = await axiosSecure.post('/create-payment-intent', {
-                totalAmount: grandTotal // Ensure grandTotal is a number
-                // paymentMethodId // Make sure to send the paymentMethodId
-            });
-            setClientSecret(data.clientSecret); // Set client secret to state
-        } catch (err) {
-            console.log(err);
-        }
-    };
-    
-      const stripe = useStripe()
-      const elements = useElements()
-    //   console.log(stripe, "emalent", elements)
-    
-      const handleSubmit = async event => {
-        setProcessing(true)
-        // Block native form submission.
-        event.preventDefault()
-    
-        if (!stripe || !elements) {
-          // Stripe.js has not loaded yet. Make sure to disable
-          // form submission until Stripe.js has loaded.
-          return
-        }
-    
-        // Get a reference to a mounted CardElement. Elements knows how
-        // to find your CardElement because there can only ever be one of
-        // each type of element.
-        const card = elements.getElement(CardElement)
-    
-        if (card == null) {
-          setProcessing(false)
-          return
-        }
-    
-       
-        const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: card,
-                billing_details: {
-                    name: user?.displayName,
-                    email: user?.email,
-                },
-            },
-        });
-      
-        if (paymentIntent.status === 'succeeded') {
-            try {
-                // Create order for each item in the cart
-            
-                    await axiosSecure.post('/order', {
-                    cartdata,
-                    customerInfo: { name: user?.displayName, email: user?.email },
-                        transactionId: paymentIntent.id,
-                        totalPrice: grandTotal,
-                        // quantity: item.quantity,
-                        date: new Date().toISOString(),
-                    });
-                
-
-                // Clear the cart after successful payment
-                // await axiosSecure.delete(`/cart?email=${user?.email}`);
-
-                refetch();
-                navigate('/invoice');
-                axios
-                .delete(`${import.meta.env.VITE_API_URL}/cart?email=${user?.email}`)
-                .then((data) => {
-                  console.log(data)
-                  refetch(); // Refetch only after successful deletion
-                })
-                .catch((error) => {
-                  console.error("Failed to delete the item:", error);
-                });
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setProcessing(false);
-            }
-        } else {
-            setProcessing(false);
-        }
-    };
-
-    return (
-        <div>
-            <div className="max-w-lg mx-auto p-6 shadow-md mt-10 rounded-lg">
-                <h2 className="text-xl font-bold mb-4">Checkout</h2>
-                <div className="border p-4 rounded">
-                    <p className="text-lg font-semibold">Grand Total: ${grandTotal}</p>
-                </div>
-            </div>
-            <form onSubmit={handleSubmit}>
-                <CardElement
-                    options={{
-                        style: {
-                            base: {
-                                fontSize: '16px',
-                                color: '#424770',
-                                '::placeholder': {
-                                    color: '#aab7c4',
-                                },
-                            },
-                            invalid: {
-                                color: '#9e2146',
-                            },
-                        },
-                    }}
-                />
-                <div className="flex justify-around mt-2 gap-2">
-                    <button
-                        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                        disabled={!stripe || !clientSecret || processing}
-                        type="submit"
-                    >
-                        {processing ? "Processing..." : "Pay"}
-                    </button>
-                </div>
-            </form>
-        </div>
+      }
     );
+
+    if (error) {
+      console.log("Stripe error:", error);
+      return null;
+    }
+
+    return paymentIntent;
+  };
+
+  // =============================
+  // HANDLE ORDER CREATION (common for all methods)
+  // =============================
+  const createOrder = async (transactionId = "COD") => {
+    await axiosSecure.post("/order", {
+      cartdata,
+      customerInfo: { name: user?.displayName, email: user?.email },
+      transactionId,
+      totalPrice: grandTotal,
+      date: new Date().toISOString(),
+      paymentMethod,
+    });
+
+    await clearCart();
+    navigate("/invoice");
+  };
+
+  // =============================
+  // MAIN SUBMIT HANDLER
+  // =============================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setProcessing(true);
+
+    // ---- CASE 1: STRIPE ----
+    if (paymentMethod === "stripe") {
+      const paymentIntent = await handleStripePayment();
+      if (paymentIntent?.status === "succeeded") {
+        await createOrder(paymentIntent.id);
+      }
+    }
+
+    // ---- CASE 2: CASH ON DELIVERY ----
+    if (paymentMethod === "cod") {
+      await createOrder("COD-PAYMENT");
+    }
+
+    // ---- CASE 3: BKASH ----
+    if (paymentMethod === "bkash") {
+      // এখানে আপনার bKash API দিলে পুরো ফ্লো সেটআপ করে দিব
+      alert("bKash integration আসছে... Backend API দিন।");
+      setProcessing(false);
+      return;
+    }
+
+    setProcessing(false);
+  };
+
+  return (
+    <div className="max-w-lg mx-auto p-6 shadow-md mt-10 rounded-lg">
+      <h2 className="text-xl font-bold mb-4">Checkout</h2>
+
+      {/* Total */}
+      <div className="border p-4 rounded mb-4">
+        <p className="text-lg font-semibold">Grand Total: ${grandTotal}</p>
+      </div>
+
+      {/* Payment Method Selector */}
+      <div className="mb-4">
+        <label className="font-semibold mb-1 block">Select Payment Method:</label>
+
+        <select
+          onChange={(e) => setPaymentMethod(e.target.value)}
+          value={paymentMethod}
+          className="p-2 border rounded w-full"
+        >
+          <option value="stripe">Stripe (Card Payment)</option>
+          <option value="cod">Cash on Delivery</option>
+          {/* <option value="bkash">bKash</option> */}
+        </select>
+      </div>
+
+      {/* Show CardElement only for stripe */}
+      {paymentMethod === "stripe" && (
+        <div className="mb-4 p-3 border rounded">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: "16px",
+                  color: "#424770",
+                },
+              },
+            }}
+          />
+        </div>
+      )}
+
+      {paymentMethod === "bkash" && (
+        <div className="p-3 border rounded text-sm text-gray-600">
+          <p>➡ এখানে bKash Payment Gateway কাজ করবে।</p>
+          <p>আপনার backend API পেলে আমি পুরো Integration সম্পূর্ণ করে দিব।</p>
+        </div>
+      )}
+
+      <button
+        onClick={handleSubmit}
+        disabled={processing}
+        className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full mt-3"
+      >
+        {processing ? "Processing..." : "Confirm Payment"}
+      </button>
+    </div>
+  );
 };
 
 export default Checkout;

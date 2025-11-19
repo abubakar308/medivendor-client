@@ -3,100 +3,173 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import logo from '../../assets/logo.webp'
 import Loading from "../../Shared/Loading/Loading";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import { Link } from "react-router-dom";
 
 const Invoice = () => {
-    const {user} = useAuth();
+  const { user } = useAuth();
 
-    const {data: orders = [], isLoading} = useQuery({
-      queryKey: ['purchases', user?.email],
-      queryFn: async () => {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/purchases?email=${user?.email}`)
-        return data
-      },
-      enabled: !!user?.email,
+  const { data: orders = [], isLoading } = useQuery({
+    queryKey: ['purchases', user?.email],
+    queryFn: async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/purchases?email=${user?.email}`
+      );
+      return data;
+    },
+    enabled: !!user?.email,
+  });
+
+  if (isLoading) return <Loading />;
+
+  const purchases = orders[orders.length - 1];
+
+  // =============== PDF DOWNLOAD FIXED ===============
+  const downloadPDF = () => {
+    const invoice = document.getElementById("invoice");
+
+    html2canvas(invoice, {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
     })
-    if(isLoading) return <Loading />;
-    
-    const purchases = orders[orders.length - 1];
-    
-    return (
-        <div className="bg-base-100 p-6">
+      .then((canvas) => {
+        const imgData = canvas.toDataURL("image/png");
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, imgHeight);
+        pdf.save("invoice.pdf");
+      })
+      .catch((err) => console.log("PDF Error:", err));
+  };
+
+  return (
+    <div style={{ padding: "20px" }}>
+
       <div
         id="invoice"
-        className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6"
+        style={{
+          maxWidth: "800px",
+          margin: "0 auto",
+          background: "#fff",
+          padding: "20px",
+          border: "1px solid #ddd",
+          borderRadius: "6px"
+        }}
       >
-        {/* Website Logo */}
-        <div className="flex items-center justify-between mb-6">
-          <img
-            src={logo}
-            alt="Website Logo"
-            className="w-24"
-          />
-          <h2 className="text-2xl font-bold text-gray-800"></h2>
+        {/* Logo and Title */}
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}>
+          <img src={logo} alt="Logo" width="100" />
+
+          <h2 style={{ fontSize: "26px", fontWeight: "bold" }}>
+            Invoice
+          </h2>
         </div>
 
-        {/* User Information */}
-        <div className="mb-4">
-          <h3 className="text-lg font-semibold text-gray-700">User Information:</h3>
+        {/* User Info */}
+        <div style={{ marginTop: "20px" }}>
+          <h3 style={{ fontSize: "18px", fontWeight: "bold" }}>
+            User Information:
+          </h3>
           <p>Name: {user?.displayName}</p>
           <p>Email: {user?.email}</p>
         </div>
+
         <p>Date: {new Date().toLocaleString()}</p>
 
-        {/* Purchase Information */}
-        <div>
-          <h3 className="text-lg font-semibold">Purchase Details:</h3>
-          <table className="w-full border-collapse border border-gray-300 mt-4">
-            <thead>
-              <tr className="bg-gray-200">
-                <th>#</th>
-                <th className="border px-4 py-2 text-left">Item</th>
-                <th className="border px-4 py-2">Quantity</th>
-                <th className="border px-4 py-2">Price</th>
+        {/* Purchase Table */}
+        <h3 style={{ fontSize: "18px", fontWeight: "bold", marginTop: "20px" }}>
+          Purchase Details:
+        </h3>
 
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            marginTop: "10px"
+          }}
+        >
+          <thead>
+            <tr style={{ background: "#f0f0f0" }}>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>#</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Item</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Qty</th>
+              <th style={{ border: "1px solid #ccc", padding: "8px" }}>Price</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {purchases?.products?.map((product, index) => (
+              <tr key={product._id}>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  {index + 1}
+                </td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  {product.productName}
+                </td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  {product.quantity}
+                </td>
+                <td style={{ border: "1px solid #ddd", padding: "8px" }}>
+                  ${product.price}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-    {purchases?.products.map((product, index) => (
-        <tr key={product._id}>
-          <td>{index+1}</td>
-          <td className="border px-4 py-2">{product.productName}</td>
-          <td className="border px-4 py-2">{product.quantity}</td>
-          <td className="border px-4 py-2">${product.price}</td>
-        </tr>
+            ))}
 
-        
-      ))
-    }
-    {purchases?.totalPrice && (
-  <tr className="bg-gray-100">
-    <td colSpan="2" className="border border-gray-400 px-4 py-2 text-right font-bold">
-      Total Price
-    </td>
-    <td className="border border-gray-400 px-4 py-2 font-bold">
-      ${purchases.totalPrice}
-    </td>
-  </tr>
-)}
-    
-  </tbody>
-          </table>
-          <div className="flex justify-end mt-4">
-          </div>
-        </div>
+            <tr style={{ background: "#f7f7f7" }}>
+              <td
+                colSpan="3"
+                style={{
+                  border: "1px solid #ccc",
+                  padding: "8px",
+                  fontWeight: "bold",
+                  textAlign: "right"
+                }}
+              >
+                Total Price:
+              </td>
+              <td
+                style={{
+                  border: "1px solid #ccc",
+                  padding: "8px",
+                  fontWeight: "bold"
+                }}
+              >
+                ${purchases?.totalPrice}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      {/* Print Button */}
-      <div className="flex justify-center mt-6">
+      {/* Button */}
+      <div style={{ textAlign: "center", marginTop: "20px" }}>
         <button
-        //   onClick={handlePrint}
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-600"
+          onClick={downloadPDF}
+          style={{
+            background: "#007bff",
+            color: "#fff",
+            padding: "10px 20px",
+            borderRadius: "6px",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "16px"
+          }}
         >
-          Download Invoice as PDF
+          {/* Download Invoice as PDF */}
+          <Link to='/'>Go to Home</Link>
         </button>
       </div>
     </div>
-    );
+  );
 };
 
 export default Invoice;
