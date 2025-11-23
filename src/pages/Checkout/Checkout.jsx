@@ -15,6 +15,7 @@ const Checkout = () => {
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("stripe"); // default stripe
+  const [bkashTrx, setBkashTrx] = useState("");
 
   const stripe = useStripe();
   const elements = useElements();
@@ -146,8 +147,13 @@ const Checkout = () => {
 
     // ---- CASE 3: BKASH ----
     if (paymentMethod === "bkash") {
-      // এখানে আপনার bKash API দিলে পুরো ফ্লো সেটআপ করে দিব
-      alert("bKash integration আসছে... Backend API দিন।");
+      if (!bkashTrx) {
+        alert("Please enter your bKash transaction ID.");
+        setProcessing(false);
+        return;
+      }
+
+      await createOrder(bkashTrx); // save trx ID
       setProcessing(false);
       return;
     }
@@ -166,7 +172,9 @@ const Checkout = () => {
 
       {/* Payment Method Selector */}
       <div className="mb-4">
-        <label className="font-semibold mb-1 block">Select Payment Method:</label>
+        <label className="font-semibold mb-1 block">
+          Select Payment Method:
+        </label>
 
         <select
           onChange={(e) => setPaymentMethod(e.target.value)}
@@ -175,7 +183,7 @@ const Checkout = () => {
         >
           <option value="stripe">Stripe (Card Payment)</option>
           <option value="cod">Cash on Delivery</option>
-          {/* <option value="bkash">bKash</option> */}
+          <option value="bkash">bKash</option>
         </select>
       </div>
 
@@ -196,9 +204,29 @@ const Checkout = () => {
       )}
 
       {paymentMethod === "bkash" && (
-        <div className="p-3 border rounded text-sm text-gray-600">
-          <p>➡ এখানে bKash Payment Gateway কাজ করবে।</p>
-          <p>আপনার backend API পেলে আমি পুরো Integration সম্পূর্ণ করে দিব।</p>
+        <div className="p-4 border rounded mb-4">
+          <h3 className="font-semibold mb-2">Send Money to bKash</h3>
+
+          {/* QR Code / Payment Screenshot */}
+          <img
+            src="/sendmoney.jpeg"
+            alt="bKash QR Code"
+            className="w-64 mx-auto mb-3"
+          />
+
+          <p className="text-sm text-gray-600 text-center">
+            Scan this QR or send money to:
+            <br />
+            <strong>medivendor</strong>
+          </p>
+
+          {/* Transaction ID Input */}
+          <input
+            type="text"
+            placeholder="Enter bKash Transaction ID"
+            className="p-2 border rounded w-full mt-3"
+            onChange={(e) => setBkashTrx(e.target.value)}
+          />
         </div>
       )}
 
