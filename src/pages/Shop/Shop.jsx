@@ -31,9 +31,11 @@ const Shop = () => {
   const sortedMedicines = filteredMedicines.sort((a, b) => {
     if (sortBy === 'price') {
       return sortOrder === 'asc' ? a.perUnitPrice - b.perUnitPrice : b.perUnitPrice - a.perUnitPrice;
-    } else if (sortBy === 'quantity') {
-      return sortOrder === 'asc' ? a.quantity - b.quantity : b.quantity - a.quantity;
-    } else { // Default sort by name
+    }
+    //  else if (sortBy === 'quantity') {
+    //   return sortOrder === 'asc' ? a.quantity - b.quantity : b.quantity - a.quantity;
+    // } 
+    else { // Default sort by name
       const nameA = a.itemName.toLowerCase();
       const nameB = b.itemName.toLowerCase();
       return sortOrder === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);

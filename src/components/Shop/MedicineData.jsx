@@ -112,19 +112,19 @@ const MedicineData = ({ medicine }) => {
         <p className="">
               {discountPercent > 0 ? (
                 <>
-                  <span className="line-through">${perUnitPrice}</span>
+                  <span className="line-through">৳{perUnitPrice}</span>
                   <span className="ml-2 text-accent">
                    
                   </span>
-                  <p className="text-secondary">price:  ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}</p>
+                  <p className="text-secondary">price:  ৳{(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}</p>
                 </>
               ) : (
-                <span>price: ${perUnitPrice}</span>
+                <span>price: ৳{perUnitPrice}</span>
               )}
             </p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
-          <p className="whitespace-nowrap dark:text-white">5</p>
+          <p className="ml-5  dark:text-white">1</p>
         </td>
         <td className="p-3 border-b border-gray-200 text-sm">
           <button onClick={handleSelect} className="btn bg-accent whitespace-no-wrap">
@@ -157,14 +157,14 @@ const MedicineData = ({ medicine }) => {
             <p className="">
               {discountPercent > 0 ? (
                 <>
-                  <span className="line-through">${perUnitPrice}</span>
+                  <span className="line-through">৳{perUnitPrice}</span>
                   <span className="ml-2 text-accent">
-                    ${(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}
+                    ৳{(perUnitPrice - (perUnitPrice * discountPercent) / 100).toFixed(2)}
                   </span>
                   <p className="text-secondary">discount: {discountPercent}%</p>
                 </>
               ) : (
-                <span>price: ${perUnitPrice}</span>
+                <span>price: ৳{perUnitPrice}</span>
               )}
             </p>
 
