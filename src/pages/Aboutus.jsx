@@ -45,7 +45,7 @@ const Aboutus = () => {
         </div>
   
         {/* Optional: Team Section */}
-        {/* <div className="py-16 px-4 max-w-6xl mx-auto">
+        <div className="py-16 px-4 max-w-6xl mx-auto">
           <h2 className="text-3xl text-secondary text-center mb-12">Meet the Team</h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 text-center">
             {[
@@ -64,7 +64,7 @@ const Aboutus = () => {
               </div>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
     );
 };

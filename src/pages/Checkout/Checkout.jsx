@@ -14,7 +14,7 @@ const Checkout = () => {
 
   const [clientSecret, setClientSecret] = useState("");
   const [processing, setProcessing] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState("stripe"); // default stripe
+  const [paymentMethod, setPaymentMethod] = useState("stripe");
   const [bkashTrx, setBkashTrx] = useState("");
 
   const stripe = useStripe();
@@ -40,7 +40,9 @@ const Checkout = () => {
 
   if (isLoading) return <Loading />;
 
-  // Calculate total
+  // =============================
+  // CALCULATE TOTAL
+  // =============================
   const grandTotal = cartdata.reduce(
     (total, item) => total + item.perUnitPrice * item.quantity,
     0
@@ -49,12 +51,6 @@ const Checkout = () => {
   // =============================
   // STRIPE PAYMENT INTENT
   // =============================
-  useEffect(() => {
-    if (grandTotal > 0 && paymentMethod === "stripe") {
-      createPaymentIntent();
-    }
-  }, [grandTotal, paymentMethod]);
-
   const createPaymentIntent = async () => {
     try {
       const { data } = await axiosSecure.post("/create-payment-intent", {
@@ -66,8 +62,16 @@ const Checkout = () => {
     }
   };
 
+  // ✅ FIX: Create payment intent properly
+  useEffect(() => {
+    if (grandTotal > 0 && paymentMethod === "stripe") {
+      createPaymentIntent();
+    }
+  }, [grandTotal, paymentMethod, axiosSecure]);
+
+
   // =============================
-  // CLEAR CART FUNCTION
+  // CLEAR CART
   // =============================
   const clearCart = async () => {
     try {
@@ -81,7 +85,7 @@ const Checkout = () => {
   };
 
   // =============================
-  // HANDLE STRIPE PAYMENT
+  // STRIPE PAYMENT
   // =============================
   const handleStripePayment = async () => {
     const card = elements.getElement(CardElement);
@@ -109,7 +113,7 @@ const Checkout = () => {
   };
 
   // =============================
-  // HANDLE ORDER CREATION (common for all methods)
+  // CREATE ORDER
   // =============================
   const createOrder = async (transactionId = "COD") => {
     await axiosSecure.post("/order", {
@@ -126,13 +130,12 @@ const Checkout = () => {
   };
 
   // =============================
-  // MAIN SUBMIT HANDLER
+  // SUBMIT HANDLER
   // =============================
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true);
 
-    // ---- CASE 1: STRIPE ----
     if (paymentMethod === "stripe") {
       const paymentIntent = await handleStripePayment();
       if (paymentIntent?.status === "succeeded") {
@@ -140,20 +143,17 @@ const Checkout = () => {
       }
     }
 
-    // ---- CASE 2: CASH ON DELIVERY ----
     if (paymentMethod === "cod") {
       await createOrder("COD-PAYMENT");
     }
 
-    // ---- CASE 3: BKASH ----
     if (paymentMethod === "bkash") {
       if (!bkashTrx) {
         alert("Please enter your bKash transaction ID.");
         setProcessing(false);
         return;
       }
-
-      await createOrder(bkashTrx); // save trx ID
+      await createOrder(bkashTrx);
       setProcessing(false);
       return;
     }
@@ -165,12 +165,10 @@ const Checkout = () => {
     <div className="max-w-lg mx-auto p-6 shadow-md mt-10 rounded-lg">
       <h2 className="text-xl font-bold mb-4">Checkout</h2>
 
-      {/* Total */}
       <div className="border p-4 rounded mb-4">
         <p className="text-lg font-semibold">Grand Total: ${grandTotal}</p>
       </div>
 
-      {/* Payment Method Selector */}
       <div className="mb-4">
         <label className="font-semibold mb-1 block">
           Select Payment Method:
@@ -187,7 +185,6 @@ const Checkout = () => {
         </select>
       </div>
 
-      {/* Show CardElement only for stripe */}
       {paymentMethod === "stripe" && (
         <div className="mb-4 p-3 border rounded">
           <CardElement
@@ -207,7 +204,6 @@ const Checkout = () => {
         <div className="p-4 border rounded mb-4">
           <h3 className="font-semibold mb-2">Send Money to bKash</h3>
 
-          {/* QR Code / Payment Screenshot */}
           <img
             src="/sendmoney.jpeg"
             alt="bKash QR Code"
@@ -220,7 +216,6 @@ const Checkout = () => {
             <strong>medivendor</strong>
           </p>
 
-          {/* Transaction ID Input */}
           <input
             type="text"
             placeholder="Enter bKash Transaction ID"
